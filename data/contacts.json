@@ -1,0 +1,11 @@
+[
+  {
+    "id": "8f33b4f6-3202-433e-b386-49cdca51739e",
+    "name": "Test User",
+    "email": "test@example.com",
+    "subject": "Test",
+    "message": "Hello from test!",
+    "submittedAt": "2026-05-30T11:59:55.115Z",
+    "status": "unread"
+  }
+]

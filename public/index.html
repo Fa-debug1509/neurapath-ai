@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="NeuraPath AI — Your AI-Powered Learning, Career & Productivity Companion. Career guidance, roadmaps, projects, and your personal AI mentor Noir.">
+<meta name="keywords" content="AI learning, career guidance, learning roadmaps, Noir AI, prompt engineering, tech education">
+<meta property="og:title" content="NeuraPath AI — Learn Smarter. Build Faster. Grow Further.">
+<meta property="og:description" content="AI-powered career guidance, learning roadmaps, project discovery, and your personal AI mentor Noir.">
+<title>NeuraPath AI — Learn Smarter. Build Faster. Grow Further.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════
+   DESIGN SYSTEM
+═══════════════════════════════════════════════ */
+:root {
+  --bg:       #050709;
+  --bg-2:     #0a0d14;
+  --bg-3:     #0e1220;
+  --bg-card:  rgba(255,255,255,0.035);
+  --bg-card-h:rgba(255,255,255,0.065);
+  --border:   rgba(255,255,255,0.07);
+  --border-2: rgba(99,179,237,0.18);
+  --text:     #dde6f5;
+  --text-2:   #7d93b5;
+  --text-3:   #445572;
+  --blue:     #3b82f6;
+  --cyan:     #06b6d4;
+  --purple:   #8b5cf6;
+  --indigo:   #6366f1;
+  --pink:     #ec4899;
+  --green:    #10b981;
+  --amber:    #f59e0b;
+  --grad-1: linear-gradient(135deg,#3b82f6,#8b5cf6,#06b6d4);
+  --grad-2: linear-gradient(135deg,#6366f1,#06b6d4);
+  --grad-3: linear-gradient(135deg,#8b5cf6,#ec4899);
+  --glow-b:  0 0 60px rgba(59,130,246,.25);
+  --glow-p:  0 0 60px rgba(139,92,246,.25);
+  --glow-c:  0 0 60px rgba(6,182,212,.25);
+  --font:    'Outfit', sans-serif;
+  --mono:    'Space Mono', monospace;
+  --r-sm:    8px;
+  --r-md:    14px;
+  --r-lg:    20px;
+  --r-xl:    28px;
+  --ease:    cubic-bezier(.4,0,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--text);font-family:var(--font);font-weight:400;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--indigo);border-radius:3px}
+::selection{background:rgba(99,102,241,.35);color:#fff}
+
+/* ── PAGE SYSTEM ── */
+.page{display:none;animation:fadeUp .45s var(--ease)}
+.page.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── TYPOGRAPHY ── */
+.display{font-size:clamp(3rem,8vw,6rem);font-weight:900;line-height:1.0;letter-spacing:-.04em}
+.h1{font-size:clamp(2rem,5vw,3.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.1}
+.h2{font-size:clamp(1.6rem,3.5vw,2.6rem);font-weight:800;letter-spacing:-.025em;line-height:1.15}
+.h3{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
+.mono{font-family:var(--mono);font-size:.78rem;letter-spacing:.06em}
+
+/* ── GRAD TEXT ── */
+.grad{background:var(--grad-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.grad-2{background:var(--grad-2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+
+/* ── LAYOUT ── */
+.container{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,60px)}
+.pt-nav{padding-top:72px}
+.section{padding:100px 0}
+.section-sm{padding:60px 0}
+
+/* ── SECTION LABEL ── */
+.label{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.72rem;color:var(--cyan);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+.label::before{content:'';display:inline-block;width:18px;height:1px;background:var(--cyan)}
+.section-header{text-align:center;margin-bottom:64px}
+.section-header .sub{color:var(--text-2);font-size:1.05rem;max-width:560px;margin:14px auto 0;line-height:1.75}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;height:72px;
+  background:rgba(5,7,9,.82);backdrop-filter:blur(24px) saturate(1.5);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,5vw,48px)}
+.logo{font-family:var(--font);font-size:1.35rem;font-weight:900;background:var(--grad-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;cursor:pointer;letter-spacing:-.03em}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+.nav-links a{color:var(--text-2);font-size:.83rem;font-weight:500;padding:7px 13px;border-radius:var(--r-sm);cursor:pointer;transition:all .2s var(--ease);text-decoration:none;white-space:nowrap}
+.nav-links a:hover,.nav-links a.active{color:var(--text);background:rgba(255,255,255,.06)}
+.nav-links a.active{color:var(--cyan)}
+.nav-cta{background:linear-gradient(135deg,var(--indigo),var(--blue)) !important;color:#fff !important;font-weight:600 !important;box-shadow:0 0 20px rgba(99,102,241,.3)}
+.nav-cta:hover{opacity:.9;transform:translateY(-1px)}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+.burger span{display:block;width:22px;height:2px;background:var(--text-2);border-radius:2px;transition:.3s}
+.mobile-nav{display:none;position:fixed;top:72px;left:0;right:0;z-index:999;
+  background:rgba(5,7,9,.96);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);
+  padding:16px;flex-direction:column;gap:2px}
+.mobile-nav.open{display:flex}
+.mobile-nav a{color:var(--text-2);font-size:.95rem;padding:12px 16px;border-radius:var(--r-sm);cursor:pointer;transition:.2s;text-decoration:none}
+.mobile-nav a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:var(--r-md);font-size:.92rem;font-weight:600;cursor:pointer;border:none;transition:all .25s var(--ease);text-decoration:none;font-family:var(--font);white-space:nowrap}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--indigo));color:#fff;box-shadow:0 0 30px rgba(99,102,241,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 0 50px rgba(99,102,241,.55)}
+.btn-secondary{background:rgba(255,255,255,.06);color:var(--text);border:1px solid var(--border)}
+.btn-secondary:hover{background:rgba(255,255,255,.1);border-color:var(--border-2);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--cyan);border:1px solid rgba(6,182,212,.3)}
+.btn-ghost:hover{background:rgba(6,182,212,.08);border-color:var(--cyan)}
+.btn-sm{padding:7px 16px;font-size:.8rem;border-radius:var(--r-sm)}
+.btn-xs{padding:5px 12px;font-size:.75rem;border-radius:6px}
+
+/* ── CARDS ── */
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px;transition:all .3s var(--ease);position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(99,102,241,.04) 0%,transparent 60%);opacity:0;transition:.3s}
+.card:hover{border-color:var(--border-2);transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.card:hover::before{opacity:1}
+.card-icon{width:52px;height:52px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:18px;background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(6,182,212,.1));border:1px solid rgba(99,102,241,.2)}
+.card h3{font-size:1.05rem;font-weight:700;margin-bottom:10px}
+.card p{color:var(--text-2);font-size:.875rem;line-height:1.7}
+
+/* ── GLASS ── */
+.glass{background:rgba(255,255,255,.04);backdrop-filter:blur(20px);border:1px solid var(--border);border-radius:var(--r-lg)}
+
+/* ── TAGS / PILLS ── */
+.tag{display:inline-block;font-size:.73rem;font-weight:600;padding:3px 11px;border-radius:50px;font-family:var(--mono)}
+.tag-blue{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);color:#93c5fd}
+.tag-cyan{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.25);color:#67e8f9}
+.tag-purple{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd}
+.tag-green{background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.25);color:#6ee7b7}
+.tag-amber{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:#fcd34d}
+.tag-pink{background:rgba(236,72,153,.1);border:1px solid rgba(236,72,153,.25);color:#f9a8d4}
+
+/* ── FORM ELEMENTS ── */
+.form-group{margin-bottom:20px}
+.form-label{display:block;font-size:.83rem;font-weight:500;color:var(--text-2);margin-bottom:8px}
+.form-input{width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);padding:12px 16px;color:var(--text);font-family:var(--font);font-size:.9rem;outline:none;transition:all .2s var(--ease)}
+.form-input:focus{border-color:var(--indigo);box-shadow:0 0 0 3px rgba(99,102,241,.12)}
+.form-input::placeholder{color:var(--text-3)}
+textarea.form-input{resize:vertical;min-height:120px}
+.form-submit{width:100%;padding:14px;background:linear-gradient(135deg,var(--blue),var(--indigo));border:none;border-radius:var(--r-md);color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;font-family:var(--font);transition:all .25s var(--ease)}
+.form-submit:hover{opacity:.92;transform:translateY(-1px);box-shadow:0 0 40px rgba(99,102,241,.4)}
+.form-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(14,18,32,.97);border:1px solid var(--border-2);border-radius:var(--r-md);padding:12px 28px;color:var(--cyan);font-size:.875rem;font-weight:500;z-index:9999;opacity:0;transition:all .3s var(--ease);pointer-events:none;white-space:nowrap;backdrop-filter:blur(20px)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── LOADING ── */
+.spinner{width:20px;height:20px;border:2px solid rgba(255,255,255,.15);border-top-color:var(--cyan);border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+.skeleton{background:linear-gradient(90deg,rgba(255,255,255,.04) 25%,rgba(255,255,255,.08) 50%,rgba(255,255,255,.04) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:var(--r-sm)}
+@keyframes shimmer{to{background-position:-200% 0}}
+
+/* ── ACCORDION ── */
+.acc{border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden}
+.acc-item{border-bottom:1px solid var(--border)}
+.acc-item:last-child{border-bottom:none}
+.acc-head{padding:18px 24px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;background:var(--bg-card);transition:.2s;font-weight:500;font-size:.93rem}
+.acc-head:hover{background:var(--bg-card-h)}
+.acc-arrow{transition:transform .3s var(--ease);color:var(--text-3);font-size:.9rem}
+.acc-item.open .acc-arrow{transform:rotate(180deg)}
+.acc-body{display:none;padding:20px 24px;color:var(--text-2);font-size:.875rem;line-height:1.8;background:var(--bg-2)}
+.acc-item.open .acc-body{display:block}
+
+/* ── FILTER TABS ── */
+.filters{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:36px}
+.filter-btn{background:var(--bg-card);border:1px solid var(--border);color:var(--text-2);padding:8px 20px;border-radius:50px;font-size:.82rem;font-weight:500;cursor:pointer;transition:.2s;font-family:var(--font)}
+.filter-btn:hover,.filter-btn.active{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.4);color:#c4b5fd}
+
+/* ── SEARCH ── */
+.search-wrap{position:relative;max-width:480px;margin:0 auto 36px}
+.search-wrap input{width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:50px;padding:12px 20px 12px 48px;color:var(--text);font-family:var(--font);font-size:.9rem;outline:none;transition:.2s}
+.search-wrap input:focus{border-color:var(--indigo);box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+.search-wrap input::placeholder{color:var(--text-3)}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--text-3);pointer-events:none;font-size:1.05rem}
+
+/* ── PROGRESS ── */
+.progress-bar{height:4px;background:rgba(255,255,255,.06);border-radius:4px;overflow:hidden}
+.progress-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--indigo),var(--cyan));transition:width .5s var(--ease)}
+
+/* ══════════════════════════════════════════
+   PAGE-SPECIFIC STYLES
+══════════════════════════════════════════ */
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(99,102,241,.1) 0%,transparent 70%),
+             radial-gradient(ellipse 50% 40% at 85% 50%,rgba(6,182,212,.07) 0%,transparent 60%),var(--bg)}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.12;animation:drift 10s ease-in-out infinite}
+.orb-1{width:600px;height:600px;background:var(--indigo);top:-200px;right:-150px}
+.orb-2{width:400px;height:400px;background:var(--cyan);bottom:-100px;left:-80px;animation-delay:4s}
+.orb-3{width:300px;height:300px;background:var(--purple);top:35%;left:25%;animation-delay:7s;opacity:.08}
+@keyframes drift{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-35px) scale(1.06)}}
+.grid-bg{position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:65px 65px}
+.hero-content{position:relative;z-index:2;padding:130px 0 80px;max-width:820px}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.28);border-radius:50px;padding:7px 18px;margin-bottom:32px}
+.badge-dot{width:7px;height:7px;background:var(--cyan);border-radius:50%;animation:pulse-dot 2s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(6,182,212,.5)}50%{opacity:.6;box-shadow:0 0 0 6px rgba(6,182,212,0)}}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px}
+.hero-chips{display:flex;gap:20px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:10px;padding:9px 15px;font-size:.82rem;color:var(--text-2)}
+.chip strong{color:var(--text);font-weight:600}
+.hero-chip-text{font-size:.88rem;color:var(--text-2);display:inline-flex;align-items:center;gap:6px}
+
+/* ── STATS STRIP ── */
+.stats-strip{background:var(--bg-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:40px 0}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:24px;text-align:center}
+.stat-num{font-size:2rem;font-weight:900;background:var(--grad-1);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;margin-bottom:4px}
+.stat-label{font-size:.82rem;color:var(--text-3);letter-spacing:.04em}
+
+/* ── WHY SECTION ── */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:20px}
+.why-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:30px;transition:all .3s var(--ease)}
+.why-card:hover{border-color:var(--border-2);background:var(--bg-card-h)}
+.why-icon{font-size:2rem;margin-bottom:14px}
+
+/* ── NOIR PAGE ── */
+.chat-window{background:var(--bg-2);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;max-width:700px;margin:0 auto;box-shadow:0 40px 100px rgba(0,0,0,.6)}
+.chat-head{background:linear-gradient(135deg,rgba(99,102,241,.15),rgba(6,182,212,.07));border-bottom:1px solid var(--border);padding:18px 24px;display:flex;align-items:center;gap:14px}
+.noir-av{width:46px;height:46px;background:linear-gradient(135deg,var(--indigo),var(--cyan));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;color:#fff;flex-shrink:0;font-family:var(--font);box-shadow:0 0 20px rgba(99,102,241,.4)}
+.chat-head-info h4{font-weight:700;font-size:.95rem}
+.chat-head-info span{font-size:.75rem;color:var(--cyan)}
+.chat-body{padding:24px;min-height:320px;display:flex;flex-direction:column;gap:18px;max-height:420px;overflow-y:auto}
+.msg{display:flex;gap:10px;max-width:88%}
+.msg.user{margin-left:auto;flex-direction:row-reverse}
+.msg-av{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700}
+.msg-av.n{background:linear-gradient(135deg,var(--indigo),var(--cyan));color:#fff}
+.msg-av.u{background:rgba(99,102,241,.2);border:1px solid rgba(99,102,241,.3);color:#a5b4fc}
+.msg-bubble{background:rgba(255,255,255,.06);border:1px solid var(--border);border-radius:18px;border-bottom-left-radius:4px;padding:12px 16px;font-size:.875rem;line-height:1.65}
+.msg.user .msg-bubble{background:linear-gradient(135deg,rgba(99,102,241,.25),rgba(59,130,246,.18));border-color:rgba(99,102,241,.3);border-radius:18px;border-bottom-right-radius:4px}
+.typing{display:flex;gap:5px;align-items:center;padding:12px 16px}
+.typing span{width:7px;height:7px;background:var(--text-3);border-radius:50%;animation:bounce .9s ease-in-out infinite}
+.typing span:nth-child(2){animation-delay:.15s}
+.typing span:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.chat-input-row{border-top:1px solid var(--border);padding:16px 20px;display:flex;gap:10px}
+.chat-inp{flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 16px;color:var(--text);font-family:var(--font);font-size:.875rem;outline:none;transition:.2s}
+.chat-inp:focus{border-color:var(--indigo)}
+.chat-inp::placeholder{color:var(--text-3)}
+.chat-send{background:linear-gradient(135deg,var(--indigo),var(--cyan));border:none;border-radius:var(--r-sm);width:42px;height:42px;cursor:pointer;color:#fff;font-size:1.05rem;display:flex;align-items:center;justify-content:center;transition:.2s;flex-shrink:0}
+.chat-send:hover{opacity:.85;transform:scale(1.05)}
+
+/* ── FAB ── */
+.fab{position:fixed;bottom:28px;right:28px;z-index:900;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--cyan));border:none;color:#fff;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(99,102,241,.55);transition:.3s;animation:fab-pulse 3s ease-in-out infinite}
+.fab:hover{transform:scale(1.1);box-shadow:0 12px 48px rgba(99,102,241,.75)}
+@keyframes fab-pulse{0%,100%{box-shadow:0 8px 32px rgba(99,102,241,.55)}50%{box-shadow:0 8px 50px rgba(99,102,241,.8),0 0 0 12px rgba(99,102,241,.06)}}
+.fab-popup{position:fixed;bottom:102px;right:28px;z-index:901;width:360px;background:var(--bg-2);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.7);display:none;flex-direction:column}
+.fab-popup.open{display:flex;animation:slideUp .3s var(--ease)}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+.fab-head{background:linear-gradient(135deg,rgba(99,102,241,.2),rgba(6,182,212,.08));border-bottom:1px solid var(--border);padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+.fab-head-l{display:flex;align-items:center;gap:10px}
+.fab-close{background:none;border:none;color:var(--text-3);cursor:pointer;font-size:1.1rem;line-height:1;transition:.2s;padding:4px}
+.fab-close:hover{color:var(--text)}
+.fab-body{padding:16px;height:240px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+.fab-inp-row{border-top:1px solid var(--border);padding:12px;display:flex;gap:8px}
+.fab-inp{flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-sm);padding:9px 13px;color:var(--text);font-family:var(--font);font-size:.83rem;outline:none}
+.fab-inp:focus{border-color:var(--indigo)}
+.fab-inp::placeholder{color:var(--text-3)}
+.fab-send{background:linear-gradient(135deg,var(--indigo),var(--cyan));border:none;border-radius:var(--r-sm);width:36px;height:36px;cursor:pointer;color:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+
+/* ── CAREER CARDS ── */
+.career-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.career-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:28px;transition:.3s var(--ease);cursor:pointer}
+.career-card:hover{border-color:var(--border-2);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.career-card h3{font-size:1.1rem;font-weight:700;margin:12px 0 10px}
+.career-card .overview{color:var(--text-2);font-size:.85rem;line-height:1.7;margin-bottom:16px}
+.skill-chips{display:flex;flex-wrap:wrap;gap:6px}
+.skill-chip{background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.2);color:#c4b5fd;font-size:.72rem;padding:3px 10px;border-radius:50px;font-family:var(--mono)}
+
+/* ── ROADMAP ── */
+.roadmap-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.rtab{background:var(--bg-card);border:1px solid var(--border);color:var(--text-2);padding:10px 20px;border-radius:var(--r-sm);font-size:.83rem;font-weight:500;cursor:pointer;transition:.2s;font-family:var(--font)}
+.rtab:hover,.rtab.active{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.4);color:#c4b5fd}
+.roadmap-panel{display:none}
+.roadmap-panel.active{display:block}
+.stage-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-bottom:28px}
+.stage-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px}
+.stage-badge{display:inline-flex;align-items:center;gap:8px;margin-bottom:14px}
+.stage-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem}
+.stage-num.b{background:rgba(6,182,212,.15);border:2px solid rgba(6,182,212,.4);color:var(--cyan)}
+.stage-num.i{background:rgba(99,102,241,.15);border:2px solid rgba(99,102,241,.4);color:#a5b4fc}
+.stage-num.a{background:rgba(139,92,246,.15);border:2px solid rgba(139,92,246,.4);color:#c4b5fd}
+.stage-duration{font-family:var(--mono);font-size:.7rem;color:var(--text-3)}
+.stage-topics{list-style:none;display:flex;flex-direction:column;gap:8px}
+.stage-topics li{font-size:.84rem;color:var(--text-2);display:flex;gap:8px;line-height:1.5}
+.stage-topics li::before{content:'→';color:var(--cyan);flex-shrink:0;font-size:.8rem;margin-top:2px}
+.cert-tools-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.mini-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px}
+.mini-card h4{font-size:.88rem;font-weight:700;margin-bottom:12px;color:var(--text-2)}
+
+/* ── PROJECT CARDS ── */
+.project-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;transition:.3s var(--ease)}
+.project-card:hover{border-color:var(--border-2);transform:translateY(-3px)}
+.project-card h4{font-size:.95rem;font-weight:700;margin:10px 0 8px}
+.project-card p{color:var(--text-2);font-size:.84rem;line-height:1.65;margin-bottom:12px}
+.diff-b{background:rgba(6,182,212,.1);border:1px solid rgba(6,182,212,.25);color:#67e8f9}
+.diff-i{background:rgba(99,102,241,.1);border:1px solid rgba(99,102,241,.25);color:#a5b4fc}
+.diff-a{background:rgba(139,92,246,.1);border:1px solid rgba(139,92,246,.25);color:#c4b5fd}
+.tech-stack{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.tech-pill{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text-3);font-size:.7rem;padding:2px 9px;border-radius:50px;font-family:var(--mono)}
+
+/* ── PROMPT CARDS ── */
+.prompt-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);padding:20px;transition:.3s}
+.prompt-card:hover{border-color:var(--border-2);transform:translateY(-2px)}
+.prompt-text{font-size:.875rem;color:var(--text-2);margin:12px 0;font-style:italic;line-height:1.65;font-family:var(--mono)}
+.prompt-actions{display:flex;gap:8px}
+.copy-btn{background:var(--bg-card-h);border:1px solid var(--border);color:var(--text-2);padding:6px 14px;border-radius:var(--r-sm);font-size:.77rem;cursor:pointer;transition:.2s;font-family:var(--font);display:flex;align-items:center;gap:5px}
+.copy-btn:hover{background:rgba(99,102,241,.15);border-color:rgba(99,102,241,.35);color:#c4b5fd}
+.copy-btn.copied{color:var(--cyan);border-color:rgba(6,182,212,.4)}
+.save-btn{background:var(--bg-card-h);border:1px solid var(--border);color:var(--text-2);padding:6px 14px;border-radius:var(--r-sm);font-size:.77rem;cursor:pointer;transition:.2s;font-family:var(--font);display:flex;align-items:center;gap:5px}
+.save-btn:hover{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.3);color:var(--green)}
+.save-btn.saved{color:var(--green);border-color:rgba(16,185,129,.4)}
+
+/* ── TOOL CARDS ── */
+.tool-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;transition:.3s}
+.tool-card:hover{border-color:var(--border-2);transform:translateY(-3px)}
+.tool-name{font-size:1rem;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.tool-desc{color:var(--text-2);font-size:.84rem;line-height:1.65;margin-bottom:12px}
+.tool-meta dt{font-size:.73rem;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px;margin-top:10px}
+.tool-meta dd{font-size:.82rem;color:var(--text-2)}
+
+/* ── BLOG ── */
+.blog-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;transition:.3s}
+.blog-card:hover{border-color:var(--border-2);transform:translateY(-5px);box-shadow:0 20px 60px rgba(0,0,0,.45)}
+.blog-thumb{height:180px;display:flex;align-items:center;justify-content:center;font-size:3rem;border-bottom:1px solid var(--border);background:linear-gradient(135deg,rgba(99,102,241,.12),rgba(6,182,212,.06))}
+.blog-body{padding:22px}
+.blog-meta{font-size:.77rem;color:var(--text-3);display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.blog-body h3{font-size:1rem;font-weight:700;margin-bottom:10px;line-height:1.45}
+.blog-body p{color:var(--text-2);font-size:.84rem;line-height:1.7;margin-bottom:16px}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--indigo),var(--cyan),transparent)}
+.tl-item{position:relative;margin-bottom:32px}
+.tl-dot{position:absolute;left:-26px;top:5px;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--cyan));box-shadow:0 0 14px rgba(99,102,241,.5)}
+.tl-item h4{font-size:1rem;font-weight:700;margin-bottom:6px}
+.tl-item p{color:var(--text-2);font-size:.875rem;line-height:1.75}
+
+/* ── FUTURE ROADMAP ── */
+.status-row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:40px}
+.status-item{display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--text-2)}
+.status-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.s-live{background:var(--cyan);box-shadow:0 0 8px rgba(6,182,212,.6)}
+.s-dev{background:var(--purple);box-shadow:0 0 8px rgba(139,92,246,.6)}
+.s-plan{background:var(--text-3)}
+
+/* ── PAGE HERO ── */
+.page-hero{padding:120px 5% 60px;text-align:center;background:radial-gradient(ellipse 60% 40% at 50% 0%,rgba(99,102,241,.09) 0%,transparent 70%)}
+.page-hero h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:900;letter-spacing:-.035em;margin-bottom:16px}
+.page-hero p{color:var(--text-2);font-size:1.05rem;max-width:580px;margin:0 auto;line-height:1.75}
+
+/* ── VALUE GRID ── */
+.value-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:32px}
+.value-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:22px;transition:.2s}
+.value-card:hover{border-color:var(--border-2)}
+.value-card h4{font-size:.9rem;font-weight:700;margin-bottom:7px}
+.value-card p{color:var(--text-2);font-size:.82rem;line-height:1.65}
+
+/* ── INTERNSHIP HUB ── */
+.hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+.contact-info-item{display:flex;align-items:center;gap:16px;padding:18px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:12px;transition:.2s}
+.contact-info-item:hover{border-color:var(--border-2)}
+.contact-info-icon{font-size:1.6rem;flex-shrink:0}
+
+/* ── NEWSLETTER ── */
+.nl-row{display:flex;gap:10px;max-width:400px}
+.nl-input{flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-md);padding:12px 16px;color:var(--text);font-family:var(--font);font-size:.88rem;outline:none;transition:.2s}
+.nl-input:focus{border-color:var(--indigo)}
+.nl-input::placeholder{color:var(--text-3)}
+.nl-btn{background:linear-gradient(135deg,var(--indigo),var(--cyan));border:none;border-radius:var(--r-md);color:#fff;padding:12px 20px;font-weight:700;cursor:pointer;font-family:var(--font);transition:.2s;white-space:nowrap}
+.nl-btn:hover{opacity:.9}
+
+/* ── FOOTER ── */
+footer{background:var(--bg-2);border-top:1px solid var(--border);padding:64px 5% 32px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer-brand p{color:var(--text-2);font-size:.85rem;line-height:1.75;margin:12px 0;max-width:250px}
+.footer-col h5{font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:16px;letter-spacing:.06em;text-transform:uppercase}
+.footer-col a{display:block;color:var(--text-2);font-size:.85rem;margin-bottom:10px;cursor:pointer;transition:.2s;text-decoration:none}
+.footer-col a:hover{color:var(--cyan)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bottom p{color:var(--text-3);font-size:.8rem}
+.social-row{display:flex;gap:10px}
+.social-btn{width:36px;height:36px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;color:var(--text-2);cursor:pointer;transition:.2s;font-size:.85rem}
+.social-btn:hover{background:var(--bg-card-h);border-color:var(--border-2);color:var(--cyan)}
+
+/* ── DIVIDER ── */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+
+/* ── MISSION BLOCK ── */
+.mission-block{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.mission-visual{background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(6,182,212,.05));border:1px solid var(--border);border-radius:var(--r-xl);padding:40px;text-align:center}
+.m-icon{font-size:4rem;margin-bottom:16px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .nav-links{display:none}
+  .burger{display:flex}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .mission-block{grid-template-columns:1fr}
+  .cert-tools-row{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .hero-ctas{flex-direction:column;align-items:flex-start}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .fab-popup{width:calc(100vw - 40px);right:20px}
+  .nl-row{flex-direction:column}
+  .cert-tools-row{grid-template-columns:1fr}
+}
+
+/* ── STATE ── */
+.hidden{display:none!important}
+.empty-state{text-align:center;padding:48px;color:var(--text-3);font-size:.9rem}
+.error-msg{color:#f87171;font-size:.82rem;margin-top:6px}
+.success-msg{color:var(--green);font-size:.82rem;margin-top:6px}
+
+/* saved prompts badge */
+.saved-count{position:absolute;top:-6px;right:-6px;background:var(--green);color:#fff;font-size:.65rem;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono)}
+
+/* Back button */
+.back-btn{display:inline-flex;align-items:center;gap:8px;color:var(--text-2);cursor:pointer;font-size:.85rem;margin-bottom:28px;transition:.2s;background:none;border:none;font-family:var(--font)}
+.back-btn:hover{color:var(--cyan)}
+</style>
+</head>
+<body>
+
+<!-- ══ NAVIGATION ══════════════════════════════════════════════════════════ -->
+<nav id="nav">
+  <div class="logo" onclick="showPage('home')">NeuraPath AI</div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')"    id="nav-home"    class="active">Home</a></li>
+    <li><a onclick="showPage('about')"   id="nav-about">About</a></li>
+    <li><a onclick="showPage('noir')"    id="nav-noir">Meet Noir</a></li>
+    <li><a onclick="showPage('career')"  id="nav-career">Careers</a></li>
+    <li><a onclick="showPage('roadmaps')" id="nav-roadmaps">Roadmaps</a></li>
+    <li><a onclick="showPage('projects')" id="nav-projects">Projects</a></li>
+    <li><a onclick="showPage('prompts')" id="nav-prompts">PromptVerse</a></li>
+    <li><a onclick="showPage('tools')"   id="nav-tools">AI Tools</a></li>
+    <li><a onclick="showPage('blog')"    id="nav-blog">Blog</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact" class="btn nav-cta btn-sm">FAQ ↗</a></li>
+  </ul>
+  <button class="burger" onclick="toggleMenu()" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ══ MOBILE NAV ══ -->
+<nav class="mobile-nav" id="mobileNav">
+  <a onclick="nav('home')">🏠 Home</a>
+  <a onclick="nav('about')">ℹ️ About</a>
+  <a onclick="nav('noir')">✦ Meet Noir</a>
+  <a onclick="nav('career')">💼 Career Mentor</a>
+  <a onclick="nav('roadmaps')">🗺️ Learning Roadmaps</a>
+  <a onclick="nav('projects')">⚡ Project Generator</a>
+  <a onclick="nav('internship')">🎓 Internship Hub</a>
+  <a onclick="nav('resume')">📄 Resume Analyzer</a>
+  <a onclick="nav('prompts')">✨ PromptVerse</a>
+  <a onclick="nav('tools')">🛠️ AI Tools</a>
+  <a onclick="nav('blog')">📝 Blog</a>
+  <a onclick="nav('roadmap-future')">🚀 Future Roadmap</a>
+  <a onclick="nav('contact')">❓ FAQ</a>
+</nav>
+
+<!-- ══ TOAST ══ -->
+<div id="toast"></div>
+
+<!-- ══ NOIR FAB ══════════════════════════════════════════════════════════= -->
+<button class="fab" onclick="toggleFab()" title="Ask Noir" aria-label="Ask Noir">
+  <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Antenna -->
+    <line x1="16" y1="2" x2="16" y2="7" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="16" cy="2" r="1.5" fill="white"/>
+    <!-- Head -->
+    <rect x="5" y="7" width="22" height="15" rx="4" fill="white" opacity="0.95"/>
+    <!-- Eyes -->
+    <rect x="9" y="11" width="5" height="5" rx="1.5" fill="#6366f1"/>
+    <rect x="18" y="11" width="5" height="5" rx="1.5" fill="#6366f1"/>
+    <!-- Mouth -->
+    <rect x="10" y="18" width="12" height="2" rx="1" fill="#6366f1" opacity="0.7"/>
+    <!-- Body -->
+    <rect x="9" y="23" width="14" height="7" rx="3" fill="white" opacity="0.85"/>
+    <!-- Ears -->
+    <rect x="2" y="10" width="3" height="6" rx="1.5" fill="white" opacity="0.8"/>
+    <rect x="27" y="10" width="3" height="6" rx="1.5" fill="white" opacity="0.8"/>
+  </svg>
+</button>
+<div class="fab-popup" id="fabPopup">
+  <div class="fab-head">
+    <div class="fab-head-l">
+      <div class="noir-av" style="width:34px;height:34px;font-size:.8rem;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5H22L16 14L18.5 21.5L12 17L5.5 21.5L8 14L2 9.5H9.5L12 2Z" fill="white" opacity="0.95"/></svg></div>
+      <div>
+        <div style="font-weight:700;font-size:.85rem;">Noir</div>
+        <div style="font-size:.7rem;color:var(--cyan);">● Online</div>
+      </div>
+    </div>
+    <button class="fab-close" onclick="toggleFab()">✕</button>
+  </div>
+  <div class="fab-body" id="fabBody">
+    <div class="msg"><div class="msg-av n">✦</div><div class="msg-bubble" style="font-size:.82rem;">Hi! I'm Noir 👋 Ask me anything about learning, careers, projects, or resumes!</div></div>
+  </div>
+  <div class="fab-inp-row">
+    <input class="fab-inp" id="fabInput" placeholder="Ask Noir..." onkeydown="if(event.key==='Enter')sendFab()">
+    <button class="fab-send" onclick="sendFab()">➤</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page active pt-nav" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="grid-bg"></div>
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span class="mono" style="color:#a5b4fc;">Newly Launched — Early Access Open</span>
+      </div>
+      <h1 class="display" style="margin-bottom:24px;">
+        Learn Smarter.<br>
+        <span class="grad">Build Faster.</span><br>
+        Grow Further.
+      </h1>
+      <p style="font-size:1.15rem;color:var(--text-2);max-width:600px;margin-bottom:40px;line-height:1.8;">
+        NeuraPath AI combines AI-powered career guidance, learning roadmaps, project discovery, prompt engineering resources, and your personal AI mentor, <strong style="color:var(--text);">Noir</strong>.
+      </p>
+      <div class="hero-ctas">
+        <button class="btn btn-primary" onclick="showPage('noir')">✦ Meet Noir</button>
+      </div>
+      <div class="hero-chips">
+        <span class="hero-chip-text">🎯 Career Guidance</span>
+        <span class="hero-chip-text">🗺️ Learning Roadmaps</span>
+        <span class="hero-chip-text">⚡ AI-Powered</span>
+        <span class="hero-chip-text">🚀 Free to Start</span>
+        <span class="hero-chip-text">📄 Resume Support</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURE CARDS -->
+  <section class="section" style="background:var(--bg-2);">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Core Features</span>
+        <h2 class="h2">Everything You Need to <span class="grad">Level Up</span></h2>
+        <p class="sub">Eight powerful modules designed to accelerate your learning, career growth, and productivity.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:18px;">
+        <div class="card" onclick="showPage('noir')" style="cursor:pointer;"><div class="card-icon">✦</div><h3>Noir AI Assistant</h3><p>Your personal AI mentor for career guidance, learning, resume reviews, and project recommendations — 24/7.</p></div>
+        <div class="card" onclick="showPage('career')" style="cursor:pointer;"><div class="card-icon">💼</div><h3>AI Career Mentor</h3><p>Detailed career paths for AI, ML, Web Dev, Cybersecurity, Design, and more with curated skill roadmaps.</p></div>
+        <div class="card" onclick="showPage('roadmaps')" style="cursor:pointer;"><div class="card-icon">🗺️</div><h3>Learning Roadmaps</h3><p>Stage-by-stage learning paths from beginner to advanced for 6 major tech disciplines.</p></div>
+        <div class="card" onclick="showPage('projects')" style="cursor:pointer;"><div class="card-icon">⚡</div><h3>Project Generator</h3><p>Curated project ideas across AI, Python, ML, Data Science, and Web Dev — filtered by difficulty.</p></div>
+        <div class="card" onclick="showPage('internship')" style="cursor:pointer;"><div class="card-icon">🎓</div><h3>Internship Hub</h3><p>Complete resources for landing internships: search strategies, LinkedIn tips, interview prep, and networking.</p></div>
+        <div class="card" onclick="showPage('resume')" style="cursor:pointer;"><div class="card-icon">📄</div><h3>Resume Analyzer</h3><p>ATS checklist, resume tips, formatting guide, keyword optimization, and common mistake identification.</p></div>
+        <div class="card" onclick="showPage('prompts')" style="cursor:pointer;"><div class="card-icon">✨</div><h3>PromptVerse</h3><p>A curated library of 80+ powerful AI prompts across 7 categories with copy and save functionality.</p></div>
+        <div class="card" onclick="showPage('tools')" style="cursor:pointer;"><div class="card-icon">🛠️</div><h3>AI Tools Directory</h3><p>Discover the best AI tools for writing, coding, research, design, productivity, and education.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="stats-grid" id="statsGrid">
+        <div><span class="stat-num">80+</span><span class="stat-label">AI Prompts</span></div>
+        <div><span class="stat-num">25+</span><span class="stat-label">Portfolio Projects</span></div>
+        <div><span class="stat-num">8</span><span class="stat-label">Career Paths</span></div>
+        <div><span class="stat-num">6</span><span class="stat-label">Learning Roadmaps</span></div>
+        <div><span class="stat-num">24+</span><span class="stat-label">AI Tools Listed</span></div>
+        <div><span class="stat-num">Free</span><span class="stat-label">To Start</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY NEURAPATH -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Why NeuraPath AI</span>
+        <h2 class="h2">Your Growth, <span class="grad">Centralized</span></h2>
+        <p class="sub">We built NeuraPath because students deserve a smarter, more personalized approach to learning and career development.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card"><div class="why-icon">🎯</div><h3 class="h3" style="margin-bottom:10px;">Centralized Learning Resources</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Stop jumping between scattered platforms. NeuraPath brings roadmaps, projects, tools, and prompts into one coherent learning environment.</p></div>
+        <div class="why-card"><div class="why-icon">🤖</div><h3 class="h3" style="margin-bottom:10px;">Personalized Guidance</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Noir adapts to your goals, skill level, and interests to give guidance that actually fits where you are in your learning journey.</p></div>
+        <div class="why-card"><div class="why-icon">💼</div><h3 class="h3" style="margin-bottom:10px;">Career-Focused Learning</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Every roadmap, project, and resource is aligned with real-world career requirements — not just academic theory.</p></div>
+        <div class="why-card"><div class="why-icon">⚡</div><h3 class="h3" style="margin-bottom:10px;">Productivity Enhancement</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">From AI prompt libraries to curated tool directories, NeuraPath helps you work smarter and accomplish more in less time.</p></div>
+        <div class="why-card"><div class="why-icon">🧠</div><h3 class="h3" style="margin-bottom:10px;">AI-Powered Support</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Noir isn't a chatbot — it's a mentor that helps you plan, build, review, and reflect throughout your learning journey.</p></div>
+        <div class="why-card"><div class="why-icon">🌱</div><h3 class="h3" style="margin-bottom:10px;">Student-Centered Design</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Built with students and early-career learners in mind — no jargon, no fluff, just practical guidance that moves you forward.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VISION SECTION -->
+  <section class="section" style="background:var(--bg-2);">
+    <div class="container">
+      <div class="mission-block">
+        <div>
+          <span class="label">Our Vision</span>
+          <h2 class="h2" style="margin-bottom:20px;">Why We Built <span class="grad">NeuraPath AI</span></h2>
+          <p style="color:var(--text-2);margin-bottom:20px;line-height:1.85;font-size:.95rem;">Students today face a paradox: more information available than ever, yet finding the right guidance at the right time remains incredibly difficult. Learning paths are fragmented across dozens of platforms. Career advice is generic. AI tools are hard to navigate without experience.</p>
+          <p style="color:var(--text-2);margin-bottom:20px;line-height:1.85;font-size:.95rem;">We built NeuraPath AI to solve this. Our mission is to give every student — regardless of background, institution, or budget — access to the kind of personalized, AI-powered guidance that was once reserved for those with elite networks.</p>
+          <p style="color:var(--text-2);line-height:1.85;font-size:.95rem;">NeuraPath AI is a starting point, a companion, and a launchpad — designed to grow with you from your first line of code to your first job offer.</p>
+        </div>
+        <div class="mission-visual">
+          <div class="m-icon">🌟</div>
+          <h3 class="h3" style="margin-bottom:14px;">Our Mission</h3>
+          <p style="color:var(--text-2);font-size:.9rem;line-height:1.8;font-style:italic;">"Democratize access to quality AI-powered education and career guidance for every aspiring professional — regardless of where they start."</p>
+          <div style="margin-top:28px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text-2);"><span style="color:var(--cyan);">✓</span> Free to start, forever accessible</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text-2);"><span style="color:var(--cyan);">✓</span> Built for students and early learners</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text-2);"><span style="color:var(--cyan);">✓</span> Transparent — zero fake metrics</div>
+            <div style="display:flex;align-items:center;gap:10px;font-size:.85rem;color:var(--text-2);"><span style="color:var(--cyan);">✓</span> Growing platform, honest progress</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMING SOON PREVIEW -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Coming Soon</span>
+        <h2 class="h2">What We're <span class="grad">Building Next</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;">
+        <div style="padding:20px 0;"><div style="font-size:1.5rem;margin-bottom:8px;">🎙️</div><h3 class="h3" style="margin-bottom:8px;">Voice Assistant</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Talk to Noir with your voice — hands-free learning and career guidance.</p><span class="tag tag-purple" style="margin-top:8px;display:inline-block;">Coming Soon</span></div>
+        <div style="padding:20px 0;"><div style="font-size:1.5rem;margin-bottom:8px;">📊</div><h3 class="h3" style="margin-bottom:8px;">Skill Assessments</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">AI-powered quizzes to identify strengths, gaps, and next steps.</p><span class="tag tag-purple" style="margin-top:8px;display:inline-block;">In Development</span></div>
+        <div style="padding:20px 0;"><div style="font-size:1.5rem;margin-bottom:8px;">🎤</div><h3 class="h3" style="margin-bottom:8px;">Mock Interviews</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Practice interviews with real AI feedback on your answers.</p><span class="tag tag-purple" style="margin-top:8px;display:inline-block;">Coming Soon</span></div>
+        <div style="padding:20px 0;"><div style="font-size:1.5rem;margin-bottom:8px;">👥</div><h3 class="h3" style="margin-bottom:8px;">Community Spaces</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Connect with learners, share projects, and collaborate.</p><span class="tag tag-blue" style="margin-top:8px;display:inline-block;">Planned</span></div>
+      </div>
+      <div style="text-align:center;margin-top:40px;">
+        <button class="btn btn-secondary" onclick="showPage('roadmap-future')">View Full Product Roadmap →</button>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /home -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: ABOUT
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page pt-nav" id="page-about">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">About NeuraPath AI</span>
+    <h1>Built for <span class="grad">Learners,</span><br>by Learners</h1>
+    <p>An early-stage AI startup on a mission to make quality learning guidance accessible to every student and aspiring professional.</p>
+  </div>
+  <section class="section" style="background:var(--bg-2);">
+    <div class="container">
+      <div class="mission-block">
+        <div>
+          <span class="label">Who We Are</span>
+          <h2 class="h2" style="margin-bottom:20px;">A Mission-Driven <span class="grad">AI Startup</span></h2>
+          <p style="color:var(--text-2);line-height:1.85;font-size:.95rem;margin-bottom:18px;">NeuraPath AI is an early-stage platform at the intersection of artificial intelligence, education, and career development. We're a team of passionate learners and builders who experienced firsthand the challenges of navigating tech education without proper guidance.</p>
+          <p style="color:var(--text-2);line-height:1.85;font-size:.95rem;margin-bottom:18px;">Our platform is designed specifically for students, self-learners, and aspiring professionals who want to build real skills, land opportunities, and grow careers with the help of AI — not in spite of it.</p>
+          <p style="color:var(--text-2);line-height:1.85;font-size:.95rem;">We're transparent: a newly launched platform with ambitious plans, genuine passion, and a deep commitment to building something that actually helps real people.</p>
+        </div>
+        <div class="mission-visual">
+          <div class="m-icon">🚀</div>
+          <h3 class="h3" style="margin-bottom:14px;">Our Core Belief</h3>
+          <p style="color:var(--text-2);font-size:.9rem;line-height:1.8;font-style:italic;">"Every student deserves access to the same quality of career guidance, learning resources, and AI-powered support — regardless of where they study or who they know."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Core Values</span>
+        <h2 class="h2">What We <span class="grad">Stand For</span></h2>
+      </div>
+      <div class="value-grid">
+        <div class="value-card"><h4>♿ Accessibility</h4><p>NeuraPath AI is free and accessible to every learner, regardless of background, location, or budget. No paywalls on essential guidance.</p></div>
+        <div class="value-card"><h4>💡 Innovation</h4><p>We constantly experiment with new approaches, tools, and features to deliver the most impactful learning experience possible.</p></div>
+        <div class="value-card"><h4>📚 Lifelong Learning</h4><p>Learning doesn't stop. We build tools that grow with you — from student to professional and every stage beyond.</p></div>
+        <div class="value-card"><h4>🛠️ Practical Skill Building</h4><p>We focus on hands-on, applicable knowledge — the kind that actually gets you hired and helps you build real things.</p></div>
+        <div class="value-card"><h4>🎯 Career Readiness</h4><p>Every feature, roadmap, and resource is designed with one ultimate goal: helping you become job-ready faster.</p></div>
+        <div class="value-card"><h4>🤝 Transparency</h4><p>No fake metrics, no inflated numbers, no paid testimonials. We show you exactly where we are and where we're going — honestly.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="background:var(--bg-2);">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Why AI Education Matters</span>
+        <h2 class="h2">The <span class="grad">AI Literacy Gap</span> is Real</h2>
+        <p class="sub">The world is changing fast. Students who understand and use AI effectively will have significant advantages in every field.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;">
+        <div class="card"><div class="card-icon">📈</div><h3>AI is Everywhere</h3><p>AI is being adopted across every industry. Understanding how to use these tools effectively is no longer optional — it's essential for career survival.</p></div>
+        <div class="card"><div class="card-icon">🧭</div><h3>Guidance is Scarce</h3><p>Most institutions haven't caught up with AI education. Students are left to navigate this new landscape alone, without proper structure or mentorship.</p></div>
+        <div class="card"><div class="card-icon">🔓</div><h3>Access Gaps Exist</h3><p>Quality mentorship, career guidance, and learning resources are often gatekept by privilege. NeuraPath AI is here to change that equation.</p></div>
+        <div class="card"><div class="card-icon">🌐</div><h3>The Future is Now</h3><p>Prompt engineering, AI-assisted coding, and AI literacy are already valuable career skills. Building them today opens tomorrow's doors.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Future Goals</span>
+        <h2 class="h2">Where We're <span class="grad">Headed</span></h2>
+      </div>
+      <div style="max-width:700px;margin:0 auto;">
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot"></div><h4>Phase 1 — Foundation (Now)</h4><p>Launch core platform: Noir AI, Career Mentor, Learning Roadmaps, PromptVerse, Project Generator, Internship Hub, Resume Analyzer, and AI Tools Directory.</p></div>
+          <div class="tl-item"><div class="tl-dot"></div><h4>Phase 2 — Intelligence</h4><p>Personalized skill assessments, adaptive learning paths, AI mock interviews, enhanced Noir with memory and context, and AI-powered resume analysis.</p></div>
+          <div class="tl-item"><div class="tl-dot"></div><h4>Phase 3 — Community</h4><p>Community learning spaces, peer collaboration, mentorship connections, project showcase platform, and community events.</p></div>
+          <div class="tl-item"><div class="tl-dot"></div><h4>Phase 4 — Ecosystem</h4><p>Integration with job boards, GitHub, LinkedIn, full internship tracker dashboard, and learning progress analytics.</p></div>
+          <div class="tl-item"><div class="tl-dot"></div><h4>Phase 5 — Scale</h4><p>Native mobile apps (iOS + Android), voice-powered Noir, institutional partnerships, and localization for global learners.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /about -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: NOIR
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page pt-nav" id="page-noir">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">Your AI Companion</span>
+    <h1>Meet <span class="grad">Noir</span></h1>
+    <p>Your Personal AI Learning & Career Assistant — always available, deeply knowledgeable, and built specifically for students and early-career learners.</p>
+  </div>
+  <section class="section" style="background:var(--bg-2);">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+        <div>
+          <span class="label">Who is Noir?</span>
+          <h2 class="h2" style="margin-bottom:18px;">More Than a <span class="grad">Chatbot</span></h2>
+          <p style="color:var(--text-2);line-height:1.85;font-size:.95rem;margin-bottom:18px;">Noir is an AI-powered mentor designed specifically for students and early-career professionals. Unlike generic AI assistants, Noir understands the unique challenges of learning tech, building a portfolio, and navigating career decisions from scratch.</p>
+          <p style="color:var(--text-2);line-height:1.85;font-size:.95rem;margin-bottom:28px;">Whether you're figuring out where to start, stuck on a project, preparing for an interview, or need honest resume feedback — Noir is here with real, actionable guidance.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span class="tag tag-blue">Career Guidance</span>
+            <span class="tag tag-cyan">Learning Assistance</span>
+            <span class="tag tag-purple">Resume Reviews</span>
+            <span class="tag tag-blue">Interview Prep</span>
+            <span class="tag tag-cyan">Project Recommendations</span>
+            <span class="tag tag-purple">Skill Gap Analysis</span>
+            <span class="tag tag-blue">Prompt Suggestions</span>
+            <span class="tag tag-cyan">Productivity Coaching</span>
+          </div>
+        </div>
+        <div class="chat-window" id="mainChatWindow">
+          <div class="chat-head">
+            <div class="noir-av"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L14.5 9.5H22L16 14L18.5 21.5L12 17L5.5 21.5L8 14L2 9.5H9.5L12 2Z" fill="white" opacity="0.95"/></svg></div>
+            <div class="chat-head-info">
+              <h4>Noir AI Assistant</h4>
+              <span id="noirStatus">● Connecting...</span>
+            </div>
+            <button class="btn btn-ghost btn-xs" onclick="clearChat()" style="margin-left:auto;">Clear</button>
+          </div>
+          <div class="chat-body" id="chatBody">
+            <div class="msg"><div class="msg-av n">✦</div><div class="msg-bubble">Hi! I'm Noir 👋 I'm your AI learning & career mentor. Ask me about career paths, learning roadmaps, project ideas, resume feedback, interview prep, or anything tech-related!</div></div>
+            <div class="msg user"><div class="msg-av u">U</div><div class="msg-bubble">I want to become an AI Engineer.</div></div>
+            <div class="msg"><div class="msg-av n">✦</div><div class="msg-bubble">Great choice! Here's your AI Engineer path:<br><br>1️⃣ <strong>Python</strong> — your foundation language<br>2️⃣ <strong>Mathematics</strong> — Linear Algebra, Statistics<br>3️⃣ <strong>ML with Scikit-learn</strong> — regression to ensembles<br>4️⃣ <strong>Deep Learning</strong> — TensorFlow or PyTorch<br>5️⃣ <strong>Specialize</strong> — NLP or Computer Vision<br>6️⃣ <strong>MLOps</strong> — deploy your models<br><br>Timeline: 12-18 months with consistent practice. Want a detailed week-by-week plan?</div></div>
+          </div>
+          <div class="chat-input-row">
+            <input class="chat-inp" id="chatInput" placeholder="Ask Noir anything..." onkeydown="if(event.key==='Enter')sendChat()">
+            <button class="chat-send" onclick="sendChat()" id="chatSendBtn">➤</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Noir Capabilities</span>
+        <h2 class="h2">What Noir <span class="grad">Can Do For You</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(258px,1fr));gap:18px;">
+        <div class="card"><div class="card-icon">🎯</div><h3>Career Guidance</h3><p>Get personalized career path recommendations based on your interests, current skills, and goals. Build a clear direction from day one.</p></div>
+        <div class="card"><div class="card-icon">📚</div><h3>Learning Assistance</h3><p>Ask questions about any tech topic, get explanations tailored to your level, and receive curated resource recommendations.</p></div>
+        <div class="card"><div class="card-icon">📄</div><h3>Resume Reviews</h3><p>Share your resume content and get actionable feedback on structure, keywords, achievements, and ATS optimization.</p></div>
+        <div class="card"><div class="card-icon">🎤</div><h3>Interview Preparation</h3><p>Practice technical and behavioral interview questions. Get guidance on how to craft strong, confident, memorable answers.</p></div>
+        <div class="card"><div class="card-icon">💡</div><h3>Project Recommendations</h3><p>Get project ideas matched to your skill level, tech stack, and career goals — with implementation guidance included.</p></div>
+        <div class="card"><div class="card-icon">✨</div><h3>Prompt Suggestions</h3><p>Receive tailored AI prompts to supercharge your study sessions, coding projects, and creative workflows.</p></div>
+        <div class="card"><div class="card-icon">⚡</div><h3>Productivity Coaching</h3><p>Build effective study habits, manage your time better, and optimize daily routines with AI-backed strategies.</p></div>
+        <div class="card"><div class="card-icon">🔍</div><h3>Skill Gap Analysis</h3><p>Tell Noir your target role, and it will identify exactly what skills you need to build and in what order.</p></div>
+      </div>
+    </div>
+  </section>
+</div><!-- /noir -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: CAREER MENTOR
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page pt-nav" id="page-career">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">AI Career Mentor</span>
+    <h1>Explore Your <span class="grad">Career Path</span></h1>
+    <p>Detailed career guides for the most in-demand tech roles — with required skills, learning paths, resources, and future opportunities.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div id="careerList" class="career-grid"></div>
+      <div id="careerDetail" class="hidden">
+        <button class="back-btn" onclick="backFromCareer()">← Back to All Careers</button>
+        <div id="careerDetailContent"></div>
+      </div>
+    </div>
+  </section>
+</div><!-- /career -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: ROADMAPS
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page pt-nav" id="page-roadmaps">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">Learning Roadmaps</span>
+    <h1>Your Path to <span class="grad">Mastery</span></h1>
+    <p>Structured, stage-by-stage learning roadmaps from beginner to advanced — with tools, certifications, and project recommendations.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="roadmap-tabs" id="roadmapTabs"></div>
+      <div id="roadmapPanels"></div>
+    </div>
+  </section>
+</div><!-- /roadmaps -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: PROJECTS
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page pt-nav" id="page-projects">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">Project Generator</span>
+    <h1>Build Something <span class="grad">Real</span></h1>
+    <p>Curated portfolio project ideas for every skill level — designed to impress employers and sharpen your technical abilities.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" placeholder="Search projects..." id="projectSearch" oninput="filterProjects()"></div>
+      <div class="filters" id="projectCatFilters"></div>
+      <div class="filters" id="projectDiffFilters"></div>
+      <div id="projectGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;"></div>
+      <div class="empty-state hidden" id="projectEmpty">No projects match your filters. Try different criteria.</div>
+    </div>
+  </section>
+</div><!-- /projects -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: INTERNSHIP HUB
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page pt-nav" id="page-internship">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">Internship Hub</span>
+    <h1>Land Your <span class="grad">First Internship</span></h1>
+    <p>Everything you need to find, apply for, and succeed in your first tech internship — from resume to offer letter.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="hub-grid">
+        <div class="card"><div class="card-icon">🔍</div><h3>Internship Search Strategies</h3><p>Where to look: LinkedIn, Unstop, Internshala, AngelList, company career pages, and niche job boards. Set up job alerts on each platform and track every application systematically. Apply early — most internships fill 6-8 weeks before the official deadline.</p></div>
+        <div class="card"><div class="card-icon">📄</div><h3>Resume Building Guide</h3><p>Keep it to one page. Use reverse chronological order. Lead with a strong 2-3 sentence summary. Quantify everything ("Reduced load time by 40%"). List relevant projects with GitHub links. Technical skills section is non-negotiable for tech roles. Use a clean, ATS-friendly template.</p></div>
+        <div class="card"><div class="card-icon">💼</div><h3>LinkedIn Optimization Guide</h3><p>Complete your profile to 100% (LinkedIn tracks this). Professional headshot matters — profiles with photos get 21x more views. Write a headline beyond "Student at X" — use skills + goal. Add all projects, certifications, and volunteering. Engage with content in your target field weekly.</p></div>
+        <div class="card"><div class="card-icon">🤝</div><h3>Networking Tips</h3><p>Alumni from your college at target companies are your best bet — they're most likely to respond. Attend virtual and in-person tech events. Join Discord communities and LinkedIn groups. Don't just ask for jobs — build genuine relationships first. A coffee chat request has a much higher success rate than "Can you refer me?"</p></div>
+        <div class="card"><div class="card-icon">💬</div><h3>HR Interview Preparation</h3><p>Master "Tell me about yourself" (90 seconds, Present → Past → Future). Research the company thoroughly — know their products, recent news, and culture. Practice 6-8 STAR format stories covering teamwork, challenge, leadership, and failure. Prepare 4-5 thoughtful questions to ask the interviewer.</p></div>
+        <div class="card"><div class="card-icon">💻</div><h3>Technical Interview Preparation</h3><p>Practice DSA on LeetCode (Easy first, then Medium). Review fundamentals of your target tech stack. Use Pramp or Interviewing.io for mock interviews. Understand core CS concepts: OS, networks, databases. Be able to explain every project on your resume deeply — how it works, your specific contribution, challenges faced.</p></div>
+        <div class="card"><div class="card-icon">📊</div><h3>Internship Tracking Tips</h3><p>Create a spreadsheet or use Notion to track: company, role, applied date, status, follow-up date, recruiter contact, and interview rounds. Set calendar reminders for follow-ups (1 week after applying). Keep a copy of every resume version and cover letter you submit. Review and update your tracker weekly.</p></div>
+        <div class="card"><div class="card-icon">🗺️</div><h3>Career Planning Resources</h3><p>Define your target role and industry before applying — knowing what you want makes everything sharper. Research skill requirements from 10+ job postings for your target role. Build projects that demonstrate you already have those skills. Start applying 3-6 months before your ideal start date. Create a 90-day plan for your first internship before it starts.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section" style="background:var(--bg-2);">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Interview Prep</span>
+        <h2 class="h2">Common <span class="grad">Interview Questions</span></h2>
+      </div>
+      <div class="acc" style="max-width:780px;margin:0 auto;">
+        <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Tell me about yourself. <span class="acc-arrow">▾</span></div><div class="acc-body">Structure: Present → Past → Future. Start with your current studies/role, mention relevant experiences and projects, then explain why you're excited about this specific opportunity. Keep it to 90 seconds. Example: "I'm a 3rd year BCA student specializing in AI/ML. I've built 3 end-to-end ML projects including an NLP-powered resume analyzer. I'm looking for an internship where I can contribute to real AI product development while continuing to grow my applied ML skills."</div></div>
+        <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Why do you want to work here? <span class="acc-arrow">▾</span></div><div class="acc-body">Research the company thoroughly. Mention specific products, technical challenges, or culture values that genuinely excite you. Connect their work to your personal goals. Avoid generic answers like "It's a great company" — be specific. Example: "I've been following [Company]'s work on [specific product]. The way your team solved [specific problem] really impressed me. I want to contribute to that mission and grow my [specific skill] in that environment."</div></div>
+        <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Describe a challenging project you built. <span class="acc-arrow">▾</span></div><div class="acc-body">Use the STAR format. Describe the project briefly, the specific technical challenge you faced, exactly what steps you took to solve it (be technical here), and the measurable outcome. Follow up by explaining what you learned and how it applies to this role. Prepare this story to take 2-3 minutes and have a shorter 60-second version ready too.</div></div>
+        <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">What are your strengths and weaknesses? <span class="acc-arrow">▾</span></div><div class="acc-body">Strengths: Pick 1-2 directly relevant to the role and back each with a specific example. Don't just say "I'm a fast learner" — prove it. Weaknesses: Be genuine (interviewers see through "I work too hard"). Choose a real weakness that isn't critical to the role, and more importantly, describe the concrete steps you're taking to improve it. Shows self-awareness and growth mindset.</div></div>
+        <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Where do you see yourself in 5 years? <span class="acc-arrow">▾</span></div><div class="acc-body">Show ambition without being unrealistic or presumptuous. Align your answer with what's achievable at this company. Emphasize wanting to develop deep expertise, take on increasing responsibility, and make meaningful contributions. Avoid specific titles — focus on skills and impact. "I want to become a strong [field] practitioner, eventually taking ownership of complex technical challenges and mentoring others."</div></div>
+        <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Do you have any questions for us? <span class="acc-arrow">▾</span></div><div class="acc-body">Always have 3-5 prepared questions. Good options: "What does success look like for an intern in this role in the first 3 months?" / "What's the biggest technical challenge your team is working on right now?" / "How do interns typically contribute to real projects here?" / "What do you enjoy most about working here?" Avoid questions about salary, leave, or work hours at this stage — save those for the offer stage.</div></div>
+      </div>
+    </div>
+  </section>
+</div><!-- /internship -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: RESUME ANALYZER
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page pt-nav" id="page-resume">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">Resume Builder</span>
+    <h1>Build a <span class="grad">Winning Resume</span></h1>
+    <p>Comprehensive resume guidance to help you pass ATS filters, impress recruiters, and land more interviews.</p>
+  </div>
+
+  <!-- ATS CHECKLIST + COMMON MISTAKES -->
+  <section class="section" style="background:var(--bg-2);">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:56px;">
+        <div class="glass" style="padding:28px;">
+          <h3 class="h3" style="margin-bottom:18px;">✅ ATS Resume Checklist</h3>
+          <div id="atsList" style="display:flex;flex-direction:column;gap:10px;"></div>
+          <div style="margin-top:20px;padding:14px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:var(--r-md);font-size:.82rem;color:var(--green);" id="atsScore"></div>
+        </div>
+        <div class="glass" style="padding:28px;">
+          <h3 class="h3" style="margin-bottom:18px;">🚫 Common Resume Mistakes</h3>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:10px;font-size:.86rem;"><span style="color:#f87171;flex-shrink:0;">✗</span><span style="color:var(--text-2);">Using "Responsible for" instead of action verbs</span></div>
+            <div style="display:flex;gap:10px;font-size:.86rem;"><span style="color:#f87171;flex-shrink:0;">✗</span><span style="color:var(--text-2);">No measurable achievements or impact metrics</span></div>
+            <div style="display:flex;gap:10px;font-size:.86rem;"><span style="color:#f87171;flex-shrink:0;">✗</span><span style="color:var(--text-2);">Generic objective statement ("Seeking a challenging role...")</span></div>
+            <div style="display:flex;gap:10px;font-size:.86rem;"><span style="color:#f87171;flex-shrink:0;">✗</span><span style="color:var(--text-2);">Missing technical skills section for tech roles</span></div>
+            <div style="display:flex;gap:10px;font-size:.86rem;"><span style="color:#f87171;flex-shrink:0;">✗</span><span style="color:var(--text-2);">Listing every skill at "expert" level</span></div>
+            <div style="display:flex;gap:10px;font-size:.86rem;"><span style="color:#f87171;flex-shrink:0;">✗</span><span style="color:var(--text-2);">No GitHub profile or portfolio link</span></div>
+            <div style="display:flex;gap:10px;font-size:.86rem;"><span style="color:#f87171;flex-shrink:0;">✗</span><span style="color:var(--text-2);">Resume exceeds 2 pages for entry level</span></div>
+            <div style="display:flex;gap:10px;font-size:.86rem;"><span style="color:#f87171;flex-shrink:0;">✗</span><span style="color:var(--text-2);">Inconsistent formatting, fonts, or spacing</span></div>
+            <div style="display:flex;gap:10px;font-size:.86rem;"><span style="color:#f87171;flex-shrink:0;">✗</span><span style="color:var(--text-2);">Spelling errors or grammatical mistakes</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPROVEMENT GUIDES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="label">Improvement Guides</span>
+        <h2 class="h2">Resume <span class="grad">Best Practices</span></h2>
+      </div>
+      <div class="acc" style="max-width:780px;margin:0 auto;">
+        <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Keyword Optimization Guide <span class="acc-arrow">▾</span></div><div class="acc-body">Study the job description carefully and identify recurring technical terms, tools, and soft skills. Mirror this language naturally throughout your resume — especially in your summary and experience sections. For tech roles, ensure your skills section explicitly lists the languages, frameworks, and platforms mentioned in the posting. Avoid "keyword stuffing" — integrate them contextually so they read naturally.</div></div>
+        <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Resume Formatting Guide <span class="acc-arrow">▾</span></div><div class="acc-body">Use consistent heading sizes with clear visual hierarchy. Maintain 0.5–1 inch margins. Professional serif or sans-serif font at 10–11pt for body, slightly larger for headings. Bold job titles and company names. Use bullet points (not paragraphs) for all experience descriptions. Align dates consistently (right-aligned recommended). Maintain balanced white space — don't squeeze everything in.</div></div>
+        <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Quantifying Your Achievements <span class="acc-arrow">▾</span></div><div class="acc-body">Numbers make achievements concrete and memorable. Replace vague claims with metrics: "Improved app performance" → "Reduced API response time by 40% through Redis caching" | "Helped the team" → "Collaborated with 4 engineers to deliver 3 features in 2-week sprints" | "Created a web app" → "Built full-stack web app with 200+ daily active users." Even estimates work — "deployed to ~50 classmates." When you have no numbers, describe the impact: "Enabled the team to eliminate manual reporting, saving ~3 hours per week."</div></div>
+        <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Writing a Strong Summary Section <span class="acc-arrow">▾</span></div><div class="acc-body">Your resume summary (2-3 sentences) should immediately communicate your value and create a reason to keep reading. Format: [Role/Level] + [Key Skills] + [Notable Achievement or Goal]. Example: "Computer Science student specializing in AI/ML with hands-on experience in Python, TensorFlow, and deploying production APIs. Built 3 end-to-end ML projects including a real-time sentiment analysis app with 94% accuracy. Seeking an ML engineering internship to contribute to AI product development." Every word should earn its place.</div></div>
+        <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Projects Section Best Practices <span class="acc-arrow">▾</span></div><div class="acc-body">For students with limited work experience, projects ARE your portfolio and most important resume section. List 3-5 strong projects. For each: Project name + one-line tech stack + 2-3 bullet points describing what it does and your specific contribution + GitHub link. Prioritize projects aligned with your target role. For each project bullet, follow the formula: "Built/Implemented/Developed [what] using [technology] to [accomplish what outcome]." Include both technical complexity AND real-world impact where possible.</div></div>
+      </div>
+    </div>
+  </section>
+</div><!-- /resume -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: PROMPTVERSE
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page pt-nav" id="page-prompts">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">PromptVerse</span>
+    <h1>Power Your Workflow with <span class="grad">AI Prompts</span></h1>
+    <p>A curated library of 80+ powerful AI prompts for students, developers, creators, and professionals — searchable, copyable, and saveable.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:28px;">
+        <div class="search-wrap" style="margin-bottom:0;flex:1;max-width:400px;"><span class="search-icon">🔍</span><input type="text" placeholder="Search prompts..." id="promptSearch" oninput="filterPrompts()"></div>
+        <button class="btn btn-secondary btn-sm" onclick="showPage('prompts-saved')" style="position:relative;">🔖 Saved Prompts <span class="saved-count" id="savedCount">0</span></button>
+      </div>
+      <div class="filters" id="promptFilters"></div>
+      <div id="promptGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;"></div>
+      <div class="empty-state hidden" id="promptEmpty">No prompts match your search. Try different keywords.</div>
+    </div>
+  </section>
+</div><!-- /prompts -->
+
+<!-- ══ PAGE: SAVED PROMPTS ══ -->
+<div class="page pt-nav" id="page-prompts-saved">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">Your Library</span>
+    <h1>Saved <span class="grad">Prompts</span></h1>
+    <p>Your personal collection of saved AI prompts — ready to use whenever you need them.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <button class="back-btn" onclick="showPage('prompts')">← Back to PromptVerse</button>
+      <div id="savedPromptsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;"></div>
+      <div class="empty-state hidden" id="savedEmpty">No saved prompts yet. Browse PromptVerse and save your favorites!</div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: AI TOOLS
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page pt-nav" id="page-tools">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">AI Tools Directory</span>
+    <h1>Discover the Best <span class="grad">AI Tools</span></h1>
+    <p>Curated tools across writing, coding, research, design, productivity, and education — with honest descriptions of what they're actually best for.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="filters" id="toolFilters"></div>
+      <div id="toolGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;"></div>
+    </div>
+  </section>
+</div><!-- /tools -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: BLOG
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page pt-nav" id="page-blog">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">NeuraPath Blog</span>
+    <h1>Learn, Explore, <span class="grad">Grow</span></h1>
+    <p>Educational articles on AI, careers, learning strategies, and the future of work — written for students and early-career professionals.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div id="blogGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;"></div>
+    </div>
+  </section>
+</div><!-- /blog -->
+
+<!-- ══ PAGE: BLOG ARTICLE ══ -->
+<div class="page pt-nav" id="page-blog-article">
+  <section class="section">
+    <div class="container" style="max-width:780px;">
+      <button class="back-btn" onclick="showPage('blog')">← Back to Blog</button>
+      <div id="articleContent"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: FUTURE ROADMAP
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page pt-nav" id="page-roadmap-future">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">Product Roadmap</span>
+    <h1>What's Next for <span class="grad">NeuraPath AI</span></h1>
+    <p>A transparent look at where we are, what we're actively building, and where we're headed.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <div class="status-row">
+        <div class="status-item"><div class="status-dot s-live"></div> Live Now</div>
+        <div class="status-item"><div class="status-dot s-dev"></div> In Development</div>
+        <div class="status-item"><div class="status-dot s-plan"></div> Planned</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;">
+        <div style="padding:20px 0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div class="status-dot s-live"></div><span class="tag tag-cyan">Live</span></div><div style="font-size:1.5rem;margin-bottom:8px;">✦</div><h3 class="h3" style="margin-bottom:8px;">Noir AI Assistant</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Interactive AI chat mentor for career guidance, learning help, resume feedback, and project recommendations.</p></div>
+        <div style="padding:20px 0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div class="status-dot s-live"></div><span class="tag tag-cyan">Live</span></div><div style="font-size:1.5rem;margin-bottom:8px;">🗺️</div><h3 class="h3" style="margin-bottom:8px;">Learning Roadmaps</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Structured roadmaps for AI, ML, Web Dev, Data Science, Cybersecurity, and UI/UX Design.</p></div>
+        <div style="padding:20px 0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div class="status-dot s-live"></div><span class="tag tag-cyan">Live</span></div><div style="font-size:1.5rem;margin-bottom:8px;">✨</div><h3 class="h3" style="margin-bottom:8px;">PromptVerse</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Curated AI prompt library with 80+ prompts across 7 categories with search and save functionality.</p></div>
+        <div style="padding:20px 0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div class="status-dot s-live"></div><span class="tag tag-cyan">Live</span></div><div style="font-size:1.5rem;margin-bottom:8px;">⚡</div><h3 class="h3" style="margin-bottom:8px;">Project Generator</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">25+ curated project ideas across 5 categories with difficulty filters and tech stack info.</p></div>
+        <div style="padding:20px 0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div class="status-dot s-dev"></div><span class="tag tag-purple">In Development</span></div><div style="font-size:1.5rem;margin-bottom:8px;">🎙️</div><h3 class="h3" style="margin-bottom:8px;">Noir Voice Assistant</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Talk to Noir using your voice — hands-free AI career and learning guidance for studying on the go.</p></div>
+        <div style="padding:20px 0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div class="status-dot s-dev"></div><span class="tag tag-purple">In Development</span></div><div style="font-size:1.5rem;margin-bottom:8px;">📊</div><h3 class="h3" style="margin-bottom:8px;">Personalized Skill Assessments</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">AI-powered quizzes that identify exactly what you know, your gaps, and your next learning priorities.</p></div>
+        <div style="padding:20px 0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div class="status-dot s-dev"></div><span class="tag tag-purple">In Development</span></div><div style="font-size:1.5rem;margin-bottom:8px;">🤖</div><h3 class="h3" style="margin-bottom:8px;">AI Resume Analysis</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Upload your resume and get automated ATS scoring, keyword gap analysis, and prioritized improvement suggestions.</p></div>
+        <div style="padding:20px 0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div class="status-dot s-plan"></div><span class="tag tag-blue">Planned</span></div><div style="font-size:1.5rem;margin-bottom:8px;">🎤</div><h3 class="h3" style="margin-bottom:8px;">AI Mock Interviews</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Practice full interview sessions with AI-generated questions, real-time feedback, and improvement tracking.</p></div>
+        <div style="padding:20px 0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div class="status-dot s-plan"></div><span class="tag tag-blue">Planned</span></div><div style="font-size:1.5rem;margin-bottom:8px;">👥</div><h3 class="h3" style="margin-bottom:8px;">Community Learning Spaces</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Connect with fellow learners, share projects, get peer feedback, and collaborate on challenges.</p></div>
+        <div style="padding:20px 0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div class="status-dot s-plan"></div><span class="tag tag-blue">Planned</span></div><div style="font-size:1.5rem;margin-bottom:8px;">📋</div><h3 class="h3" style="margin-bottom:8px;">Internship Tracker Dashboard</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Kanban-style dashboard to manage all applications, deadlines, interview rounds, and contacts in one view.</p></div>
+        <div style="padding:20px 0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div class="status-dot s-plan"></div><span class="tag tag-blue">Planned</span></div><div style="font-size:1.5rem;margin-bottom:8px;">📈</div><h3 class="h3" style="margin-bottom:8px;">Learning Progress Analytics</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">Visual dashboard showing your learning streaks, skills mastered, projects completed, and career readiness score.</p></div>
+        <div style="padding:20px 0;"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;"><div class="status-dot s-plan"></div><span class="tag tag-blue">Planned</span></div><div style="font-size:1.5rem;margin-bottom:8px;">🧠</div><h3 class="h3" style="margin-bottom:8px;">Personalized AI Study Plans</h3><p style="color:var(--text-2);font-size:.875rem;line-height:1.7;">AI-generated weekly study schedules based on your goal, available time, current level, and preferred learning style.</p></div>
+      </div>
+    </div>
+  </section>
+</div><!-- /roadmap-future -->
+
+<!-- ══════════════════════════════════════════════════════════════════════════
+     PAGE: CONTACT
+══════════════════════════════════════════════════════════════════════════ -->
+<div class="page pt-nav" id="page-contact">
+  <div class="page-hero">
+    <span class="label" style="justify-content:center;">FAQ</span>
+    <h1>Frequently Asked <span class="grad">Questions</span></h1>
+    <p>Everything you need to know about NeuraPath AI — answered clearly and honestly.</p>
+  </div>
+  <section class="section">
+    <div class="container">
+      <!-- FAQ -->
+      <div>
+        <div class="acc" style="max-width:760px;margin:0 auto;">
+          <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Is NeuraPath AI free to use? <span class="acc-arrow">▾</span></div><div class="acc-body">Yes! NeuraPath AI is free to start. All core features — Noir AI, Learning Roadmaps, PromptVerse, Career Mentor, Project Generator, Internship Hub, Resume Analyzer, and AI Tools Directory — are available at no cost. We may introduce optional premium features in the future, but our commitment to free access for students will remain.</div></div>
+          <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Who is NeuraPath AI designed for? <span class="acc-arrow">▾</span></div><div class="acc-body">NeuraPath AI is primarily built for students (BCA, BTech, BSc CS, engineering, and related programs), self-learners, bootcamp graduates, and early-career professionals (0-2 years experience) in tech fields. If you're looking to build skills, create a portfolio, and land your first tech opportunity — this platform is for you.</div></div>
+          <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">How does Noir AI work? <span class="acc-arrow">▾</span></div><div class="acc-body">Noir is powered by an AI language model specifically prompted to assist with tech learning, career planning, resume feedback, and project guidance for students. It uses pattern recognition to detect what you're asking about and provides tailored, actionable guidance. The more specific your question, the better Noir can help. You can access Noir via the dedicated page or the floating button on any page.</div></div>
+          <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Is NeuraPath AI affiliated with any companies or institutions? <span class="acc-arrow">▾</span></div><div class="acc-body">NeuraPath AI is an independent platform. We are not affiliated with, endorsed by, or partnered with any educational institution, company, or recruitment agency. All content is created independently and is purely for educational and career development purposes. We do not have any paid partnerships that influence our recommendations.</div></div>
+          <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">Can I contribute or provide feedback? <span class="acc-arrow">▾</span></div><div class="acc-body">Absolutely! We're in early stages and actively seeking feedback, suggestions, and contributions. Use the contact form above to share ideas, report issues, or suggest new features. We read every message and genuinely incorporate user feedback into our product roadmap. Community input is central to how we build NeuraPath AI.</div></div>
+          <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">What makes NeuraPath AI different from other learning platforms? <span class="acc-arrow">▾</span></div><div class="acc-body">Most platforms focus on one thing — courses, or job boards, or tools. NeuraPath AI is a holistic companion: AI mentor + structured roadmaps + project ideas + resume tools + prompt library + career guidance + internship prep, all in one place. We're also radically transparent: no testimonials we didn't earn, no inflated user counts, no fake "X users trust us" claims. Just honest, practical guidance for learners.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div><!-- /contact -->
+
+<!-- ══ FOOTER ══════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="font-size:1.4rem;display:inline-block;margin-bottom:4px;">NeuraPath AI</div>
+        <p>Your AI-Powered Learning, Career & Productivity Companion. Built for students. Designed for the future.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Platform</h5>
+        <a onclick="showPage('noir')">Meet Noir</a>
+        <a onclick="showPage('career')">Career Mentor</a>
+        <a onclick="showPage('roadmaps')">Learning Roadmaps</a>
+        <a onclick="showPage('projects')">Project Generator</a>
+        <a onclick="showPage('prompts')">PromptVerse</a>
+      </div>
+      <div class="footer-col">
+        <h5>Resources</h5>
+        <a onclick="showPage('internship')">Internship Hub</a>
+        <a onclick="showPage('resume')">Resume Analyzer</a>
+        <a onclick="showPage('tools')">AI Tools</a>
+        <a onclick="showPage('blog')">Blog</a>
+        <a onclick="showPage('roadmap-future')">Future Roadmap</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a onclick="showPage('about')">About Us</a>
+        <a onclick="showPage('contact')">FAQ</a>
+        <a onclick="toast('Privacy Policy — Coming soon')">Privacy Policy</a>
+        <a onclick="toast('Terms of Service — Coming soon')">Terms of Service</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 NeuraPath AI. All rights reserved. | Built with ♥ for learners everywhere.</p>
+      <p>Newly launched — no fake metrics, just honest progress.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══ JAVASCRIPT ══════════════════════════════════════════════════════════ -->
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   CORE SYSTEM
+═══════════════════════════════════════════════════════════════════ */
+const API = '';  // same-origin, server.js serves both static + API
+const SESSION_ID = 'session_' + Math.random().toString(36).slice(2);
+
+// Page navigation
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) { page.classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); }
+  document.querySelectorAll('.nav-links a, .mobile-nav a').forEach(a => a.classList.remove('active'));
+  const na = document.getElementById('nav-' + id);
+  if (na) na.classList.add('active');
+  // Lazy render
+  const renderers = { career: renderCareers, roadmaps: renderRoadmaps, projects: renderProjects,
+    prompts: renderPrompts, 'prompts-saved': renderSavedPrompts, tools: renderTools,
+    blog: renderBlog, resume: initATS };
+  if (renderers[id]) renderers[id]();
+  loadSavedCount();
+}
+function nav(id) { showPage(id); toggleMenu(); }
+
+function toggleMenu() {
+  const mn = document.getElementById('mobileNav');
+  mn.classList.toggle('open');
+}
+
+// Toast
+function toast(msg, type='info') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.color = type === 'error' ? '#f87171' : type === 'success' ? 'var(--green)' : 'var(--cyan)';
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 3200);
+}
+
+// API call helper
+async function api(endpoint, method='GET', data=null) {
+  try {
+    const opts = { method, headers:{'Content-Type':'application/json'} };
+    if (data) opts.body = JSON.stringify(data);
+    const r = await fetch(API + endpoint, opts);
+    return await r.json();
+  } catch(e) {
+    console.error('API error:', endpoint, e);
+    return null;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   NOIR CHAT — Full Page
+═══════════════════════════════════════════════════════════════════ */
+let chatSending = false;
+
+async function sendChat() {
+  if (chatSending) return;
+  const inp = document.getElementById('chatInput');
+  const body = document.getElementById('chatBody');
+  const msg = inp.value.trim();
+  if (!msg) return;
+  chatSending = true;
+  inp.value = '';
+  document.getElementById('chatSendBtn').disabled = true;
+
+  // User bubble
+  appendMsg(body, 'user', msg);
+  // Typing
+  const typingEl = appendTyping(body);
+  body.scrollTop = body.scrollHeight;
+
+  const res = await api('/api/noir/chat','POST',{message:msg, sessionId: SESSION_ID});
+  typingEl.remove();
+  chatSending = false;
+  document.getElementById('chatSendBtn').disabled = false;
+
+  if (res && res.reply) {
+    appendMsg(body, 'noir', res.reply);
+  } else {
+    appendMsg(body, 'noir', "I'm having a moment — could you try again? 🔄");
+  }
+  body.scrollTop = body.scrollHeight;
+}
+
+function clearChat() {
+  const body = document.getElementById('chatBody');
+  body.innerHTML = `<div class="msg"><div class="msg-av n">✦</div><div class="msg-bubble">Chat cleared! What can I help you with? ✦</div></div>`;
+}
+
+function appendMsg(container, who, text) {
+  const d = document.createElement('div');
+  d.className = 'msg' + (who === 'user' ? ' user' : '');
+  const formattedText = text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  d.innerHTML = `<div class="msg-av ${who==='noir'?'n':'u'}">${who==='noir'?'✦':'U'}</div><div class="msg-bubble">${formattedText}</div>`;
+  container.appendChild(d);
+  return d;
+}
+
+function appendTyping(container) {
+  const d = document.createElement('div');
+  d.className = 'msg';
+  d.innerHTML = `<div class="msg-av n">✦</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+  container.appendChild(d);
+  return d;
+}
+
+// Check Noir status
+async function checkNoirStatus() {
+  const res = await api('/api/health');
+  const el = document.getElementById('noirStatus');
+  if (el) el.textContent = res ? '● Active — NeuraPath AI' : '● Offline';
+}
+
+/* FAB (floating) Noir chat */
+function toggleFab() {
+  document.getElementById('fabPopup').classList.toggle('open');
+}
+
+let fabSending = false;
+async function sendFab() {
+  if (fabSending) return;
+  const inp = document.getElementById('fabInput');
+  const body = document.getElementById('fabBody');
+  const msg = inp.value.trim();
+  if (!msg) return;
+  fabSending = true;
+  inp.value = '';
+
+  const u = document.createElement('div');
+  u.className = 'msg user';
+  u.innerHTML = `<div class="msg-av u" style="width:26px;height:26px;font-size:.68rem;">U</div><div class="msg-bubble" style="font-size:.8rem;">${msg}</div>`;
+  body.appendChild(u);
+
+  const t = document.createElement('div');
+  t.className = 'msg';
+  t.innerHTML = `<div class="msg-av n" style="width:26px;height:26px;font-size:.68rem;">✦</div><div class="msg-bubble" style="font-size:.8rem;color:var(--text-3);">Thinking...</div>`;
+  body.appendChild(t);
+  body.scrollTop = body.scrollHeight;
+
+  const res = await api('/api/noir/chat','POST',{message:msg, sessionId: SESSION_ID+'_fab'});
+  t.remove();
+  fabSending = false;
+
+  const reply = (res && res.reply) ? res.reply : "Try again in a moment!";
+  const short = reply.length > 280 ? reply.substring(0, 280) + '...<br><small style="color:var(--text-3);">Open Noir page for full answer ↗</small>' : reply;
+  const n = document.createElement('div');
+  n.className = 'msg';
+  n.innerHTML = `<div class="msg-av n" style="width:26px;height:26px;font-size:.68rem;">✦</div><div class="msg-bubble" style="font-size:.8rem;">${short.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}</div>`;
+  body.appendChild(n);
+  body.scrollTop = body.scrollHeight;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CAREER MENTOR
+═══════════════════════════════════════════════════════════════════ */
+let careerRendered = false;
+async function renderCareers() {
+  if (careerRendered) return;
+  const list = document.getElementById('careerList');
+  list.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;"><div class="spinner"></div></div>';
+  const res = await api('/api/careers');
+  if (!res) { list.innerHTML = '<div class="empty-state">Failed to load careers. Please refresh.</div>'; return; }
+
+  list.innerHTML = res.careers.map(c => `
+    <div class="career-card" onclick="showCareerDetail('${c.id}')">
+      <div style="font-size:2.2rem;">${c.icon}</div>
+      <h3>${c.title}</h3>
+      <p class="overview">${c.overview.substring(0,110)}...</p>
+      <div class="skill-chips">${c.skills.slice(0,4).map(s=>`<span class="skill-chip">${s}</span>`).join('')}</div>
+      <div style="margin-top:16px;display:flex;justify-content:space-between;align-items:center;">
+        <span class="tag tag-green" style="font-size:.7rem;">${c.salary ? c.salary.split('|')[0].trim() : ''}</span>
+        <span style="font-size:.8rem;color:var(--cyan);">Explore →</span>
+      </div>
+    </div>`).join('');
+  careerRendered = true;
+}
+
+async function showCareerDetail(id) {
+  const res = await api(`/api/careers?id=${id}`);
+  if (!res) return;
+  const c = res;
+
+  document.getElementById('careerList').classList.add('hidden');
+  document.getElementById('careerDetail').classList.remove('hidden');
+
+  document.getElementById('careerDetailContent').innerHTML = `
+    <div style="max-width:860px;">
+      <div style="font-size:3.5rem;margin-bottom:14px;">${c.icon}</div>
+      <h1 class="h1" style="margin-bottom:12px;">${c.title}</h1>
+      <p style="color:var(--text-2);font-size:1rem;line-height:1.85;margin-bottom:36px;max-width:680px;">${c.overview}</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
+        <div class="glass" style="padding:24px;">
+          <h3 class="h3" style="margin-bottom:16px;">🛠️ Skills Required</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">${c.skills.map(s=>`<span class="skill-chip">${s}</span>`).join('')}</div>
+        </div>
+        <div class="glass" style="padding:24px;">
+          <h3 class="h3" style="margin-bottom:16px;">🗺️ Learning Path</h3>
+          <ol style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+            ${c.path.map((p,i)=>`<li style="display:flex;gap:10px;font-size:.875rem;"><span style="color:var(--cyan);font-weight:700;flex-shrink:0;">${i+1}.</span><span style="color:var(--text-2);">${p}</span></li>`).join('')}
+          </ol>
+        </div>
+        <div class="glass" style="padding:24px;">
+          <h3 class="h3" style="margin-bottom:16px;">📚 Useful Resources</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">${c.resources.map(r=>`<span class="tag tag-cyan">${r}</span>`).join('')}</div>
+        </div>
+        <div class="glass" style="padding:24px;">
+          <h3 class="h3" style="margin-bottom:16px;">🚀 Future Opportunities</h3>
+          ${c.opportunities.map(o=>`<div style="font-size:.875rem;color:var(--text-2);margin-bottom:8px;">→ ${o}</div>`).join('')}
+          <div style="margin-top:16px;padding:12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.2);border-radius:var(--r-md);">
+            <div style="font-size:.78rem;color:var(--text-3);margin-bottom:3px;">Typical Salary Range</div>
+            <div style="font-size:.88rem;font-weight:600;color:var(--green);">${c.salary}</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:28px;padding:20px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:var(--r-lg);">
+        <p style="font-size:.88rem;color:var(--text-2);">💡 <strong style="color:var(--text);">Ask Noir for a personalized plan:</strong> Open the chat and say "Create a 6-month plan for becoming a ${c.title}" for a tailored study schedule.</p>
+      </div>
+    </div>`;
+}
+
+function backFromCareer() {
+  document.getElementById('careerList').classList.remove('hidden');
+  document.getElementById('careerDetail').classList.add('hidden');
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ROADMAPS
+═══════════════════════════════════════════════════════════════════ */
+let roadmapsRendered = false;
+async function renderRoadmaps() {
+  if (roadmapsRendered) return;
+  const tabsEl = document.getElementById('roadmapTabs');
+  const panelsEl = document.getElementById('roadmapPanels');
+  tabsEl.innerHTML = '<div class="spinner" style="margin:0"></div>';
+
+  const res = await api('/api/roadmaps');
+  if (!res) return;
+
+  tabsEl.innerHTML = res.topics.map((t,i) => `<button class="rtab${i===0?' active':''}" onclick="switchRoadmapTab('${t}',this)">${t}</button>`).join('');
+
+  panelsEl.innerHTML = res.topics.map((topic, i) => {
+    const r = res.roadmaps[topic];
+    return `<div class="roadmap-panel${i===0?' active':''}" id="rp-${topic.replace(/\s/g,'_')}">
+      <div class="stage-grid">
+        ${['beginner','intermediate','advanced'].map((level, li) => {
+          const s = r[level];
+          const labels = ['Beginner','Intermediate','Advanced'];
+          const cls = ['b','i','a'];
+          return `<div class="stage-card">
+            <div class="stage-badge">
+              <div class="stage-num ${cls[li]}">${labels[li][0]}</div>
+              <div>
+                <div style="font-weight:700;font-size:.9rem;">${labels[li]} Stage</div>
+                <div class="stage-duration">${s.duration}</div>
+              </div>
+            </div>
+            <ul class="stage-topics">${s.topics.map(t=>`<li>${t}</li>`).join('')}</ul>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="cert-tools-row">
+        <div class="mini-card">
+          <h4>🛠️ Recommended Tools</h4>
+          <div style="display:flex;flex-wrap:wrap;gap:7px;">${r.tools.map(t=>`<span class="tag tag-cyan">${t}</span>`).join('')}</div>
+        </div>
+        <div class="mini-card">
+          <h4>🏆 Certifications</h4>
+          ${r.certs.map(c=>`<div style="font-size:.84rem;color:var(--text-2);margin-bottom:7px;">◈ ${c}</div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  roadmapsRendered = true;
+}
+
+function switchRoadmapTab(topic, el) {
+  document.querySelectorAll('.rtab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.roadmap-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('rp-' + topic.replace(/\s/g,'_'));
+  if (panel) panel.classList.add('active');
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PROJECTS
+═══════════════════════════════════════════════════════════════════ */
+let allProjects = [], projectCatFilter = 'All', projectDiffFilter = 'All';
+
+async function renderProjects() {
+  if (allProjects.length) { renderProjectGrid(); return; }
+  const res = await api('/api/projects');
+  if (!res) return;
+  allProjects = res.projects;
+
+  // Cat filters
+  document.getElementById('projectCatFilters').innerHTML =
+    res.categories.map(c => `<button class="filter-btn${c==='All'?' active':''}" onclick="setProjectCat('${c}',this)">${c}</button>`).join('');
+  // Diff filters
+  document.getElementById('projectDiffFilters').innerHTML =
+    res.difficulties.map(d => `<button class="filter-btn${d==='All'?' active':''}" onclick="setProjectDiff('${d}',this)">${d}</button>`).join('');
+
+  renderProjectGrid();
+}
+
+function setProjectCat(cat, el) {
+  projectCatFilter = cat;
+  document.querySelectorAll('#projectCatFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderProjectGrid();
+}
+function setProjectDiff(diff, el) {
+  projectDiffFilter = diff;
+  document.querySelectorAll('#projectDiffFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderProjectGrid();
+}
+function filterProjects() {
+  renderProjectGrid();
+}
+
+function renderProjectGrid() {
+  const search = document.getElementById('projectSearch')?.value.toLowerCase() || '';
+  let filtered = allProjects.filter(p => {
+    const catOk = projectCatFilter === 'All' || p.cat === projectCatFilter;
+    const diffOk = projectDiffFilter === 'All' || p.diff === projectDiffFilter;
+    const searchOk = !search || p.title.toLowerCase().includes(search) || p.desc.toLowerCase().includes(search);
+    return catOk && diffOk && searchOk;
+  });
+
+  const grid = document.getElementById('projectGrid');
+  const empty = document.getElementById('projectEmpty');
+  if (!filtered.length) { grid.innerHTML = ''; empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+
+  const diffMap = {Beginner:'diff-b',Intermediate:'diff-i',Advanced:'diff-a'};
+  grid.innerHTML = filtered.map(p => `
+    <div class="project-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <span class="tag ${diffMap[p.diff]||'tag-blue'}" style="font-size:.7rem;">${p.diff}</span>
+        <span class="tag tag-blue" style="font-size:.7rem;">${p.cat}</span>
+      </div>
+      <h4>${p.title}</h4>
+      <p>${p.desc}</p>
+      <div class="tech-stack">${p.tech.map(t=>`<span class="tech-pill">${t}</span>`).join('')}</div>
+      <button class="btn btn-ghost btn-xs" style="margin-top:14px;width:100%;" onclick="askNoirAboutProject('${p.title.replace(/'/g,"\\'")}')">Ask Noir for Guide →</button>
+    </div>`).join('');
+}
+
+function askNoirAboutProject(title) {
+  showPage('noir');
+  setTimeout(() => {
+    const inp = document.getElementById('chatInput');
+    inp.value = `How do I build the "${title}" project? Give me a step-by-step implementation guide.`;
+    inp.focus();
+  }, 400);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   PROMPTVERSE
+═══════════════════════════════════════════════════════════════════ */
+let allPrompts = {}, promptCatFilter = 'All', savedPrompts = {};
+
+async function renderPrompts() {
+  if (Object.keys(allPrompts).length) { renderPromptGrid(); return; }
+  const res = await api('/api/prompts');
+  if (!res) return;
+  allPrompts = res.prompts;
+
+  document.getElementById('promptFilters').innerHTML =
+    ['All', ...res.categories].map(c => `<button class="filter-btn${c==='All'?' active':''}" onclick="setPromptCat('${c}',this)">${c}</button>`).join('');
+
+  await loadSavedPrompts();
+  renderPromptGrid();
+}
+
+async function loadSavedPrompts() {
+  const res = await api(`/api/prompts/saved?sessionId=${SESSION_ID}`);
+  if (res) {
+    savedPrompts = {};
+    res.saved.forEach(s => savedPrompts[s.prompt] = s.id);
+  }
+  loadSavedCount();
+}
+
+function loadSavedCount() {
+  const c = document.getElementById('savedCount');
+  if (c) c.textContent = Object.keys(savedPrompts).length;
+}
+
+function setPromptCat(cat, el) {
+  promptCatFilter = cat;
+  document.querySelectorAll('#promptFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderPromptGrid();
+}
+function filterPrompts() { renderPromptGrid(); }
+
+function renderPromptGrid() {
+  const search = document.getElementById('promptSearch')?.value.toLowerCase() || '';
+  const grid = document.getElementById('promptGrid');
+  const empty = document.getElementById('promptEmpty');
+  let items = [];
+  const cats = promptCatFilter === 'All' ? Object.keys(allPrompts) : [promptCatFilter];
+  cats.forEach(cat => {
+    (allPrompts[cat] || []).forEach(p => {
+      if (!search || p.toLowerCase().includes(search) || cat.toLowerCase().includes(search)) {
+        items.push({cat, text: p});
+      }
+    });
+  });
+  if (!items.length) { grid.innerHTML = ''; empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+
+  grid.innerHTML = items.map((item, idx) => {
+    const isSaved = !!savedPrompts[item.text];
+    return `<div class="prompt-card">
+      <span class="tag tag-cyan" style="font-size:.7rem;">${item.cat}</span>
+      <p class="prompt-text">"${item.text}"</p>
+      <div class="prompt-actions">
+        <button class="copy-btn" id="copy-${idx}" onclick="copyPrompt(${idx},'${escHtml(item.text)}',this)">📋 Copy</button>
+        <button class="save-btn ${isSaved?'saved':''}" id="save-${idx}" onclick="savePrompt('${escHtml(item.text)}','${escHtml(item.cat)}',${idx},this)">${isSaved?'✓ Saved':'🔖 Save'}</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function escHtml(s) { return s.replace(/'/g,"\\'").replace(/\n/g,'\\n'); }
+
+function copyPrompt(idx, text, btn) {
+  navigator.clipboard.writeText(text.replace(/\\n/g,'\n').replace(/\\'/g,"'")).then(() => {
+    btn.textContent = '✓ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+async function savePrompt(text, category, idx, btn) {
+  const realText = text.replace(/\\n/g,'\n').replace(/\\'/g,"'");
+  const realCat = category.replace(/\\'/g,"'");
+
+  if (savedPrompts[realText]) {
+    // unsave
+    const id = savedPrompts[realText];
+    await api('/api/prompts/saved','DELETE',{sessionId:SESSION_ID, promptId:id});
+    delete savedPrompts[realText];
+    btn.textContent = '🔖 Save';
+    btn.classList.remove('saved');
+    toast('Prompt removed from saved');
+  } else {
+    const res = await api('/api/prompts/save','POST',{sessionId:SESSION_ID, prompt:realText, category:realCat});
+    if (res && res.saved) {
+      res.saved.forEach(s => savedPrompts[s.prompt] = s.id);
+      btn.textContent = '✓ Saved';
+      btn.classList.add('saved');
+      toast('Prompt saved! 🔖');
+    }
+  }
+  loadSavedCount();
+}
+
+async function renderSavedPrompts() {
+  await loadSavedPrompts();
+  const grid = document.getElementById('savedPromptsGrid');
+  const empty = document.getElementById('savedEmpty');
+  const saved = Object.keys(savedPrompts);
+
+  if (!saved.length) { grid.innerHTML = ''; empty.classList.remove('hidden'); return; }
+  empty.classList.add('hidden');
+
+  grid.innerHTML = saved.map((text, idx) => `
+    <div class="prompt-card">
+      <p class="prompt-text">"${text}"</p>
+      <div class="prompt-actions">
+        <button class="copy-btn" onclick="copyPrompt(${idx},'${escHtml(text)}',this)">📋 Copy</button>
+        <button class="save-btn saved" onclick="removeSaved('${escHtml(text)}',this)">✓ Remove</button>
+      </div>
+    </div>`).join('');
+}
+
+async function removeSaved(text, btn) {
+  const realText = text.replace(/\\n/g,'\n').replace(/\\'/g,"'");
+  const id = savedPrompts[realText];
+  await api('/api/prompts/saved','DELETE',{sessionId:SESSION_ID, promptId:id});
+  delete savedPrompts[realText];
+  loadSavedCount();
+  toast('Prompt removed');
+  renderSavedPrompts();
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   AI TOOLS
+═══════════════════════════════════════════════════════════════════ */
+let toolsRendered = false, toolCatFilter = 'All';
+
+async function renderTools() {
+  if (toolsRendered) return;
+  const res = await api('/api/tools');
+  if (!res) return;
+
+  document.getElementById('toolFilters').innerHTML =
+    res.categories.map(c => `<button class="filter-btn${c==='All'?' active':''}" onclick="setToolCat('${c}',this)">${c}</button>`).join('');
+
+  renderToolGrid(res.tools, res);
+  toolsRendered = true;
+}
+
+function setToolCat(cat, el) {
+  toolCatFilter = cat;
+  document.querySelectorAll('#toolFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  fetchAndRenderTools(cat);
+}
+
+async function fetchAndRenderTools(cat) {
+  const res = await api(`/api/tools?cat=${encodeURIComponent(cat)}`);
+  if (!res) return;
+  renderToolGrid(res.tools);
+}
+
+function renderToolGrid(tools) {
+  document.getElementById('toolGrid').innerHTML = tools.map(t => `
+    <div class="tool-card">
+      <div class="tool-name">${t.icon} ${t.name} <span class="tag tag-blue" style="font-size:.68rem;">${t.cat}</span></div>
+      <p class="tool-desc">${t.desc}</p>
+      <dl class="tool-meta">
+        <dt>Use Cases</dt><dd>${t.use}</dd>
+        <dt>Best For</dt><dd>${t.best}</dd>
+      </dl>
+    </div>`).join('');
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BLOG
+═══════════════════════════════════════════════════════════════════ */
+let blogRendered = false;
+
+async function renderBlog() {
+  if (blogRendered) return;
+  const res = await api('/api/blog');
+  if (!res) return;
+
+  document.getElementById('blogGrid').innerHTML = res.posts.map(b => `
+    <div class="blog-card">
+      <div class="blog-thumb">${b.emoji}</div>
+      <div class="blog-body">
+        <div class="blog-meta">
+          <span>✍️ ${b.author}</span>
+          <span>📅 ${b.date}</span>
+          <span class="tag tag-blue" style="font-size:.68rem;">${b.cat}</span>
+          <span>⏱ ${b.readTime}</span>
+        </div>
+        <h3>${b.title}</h3>
+        <p>${b.summary}</p>
+        <button class="btn btn-ghost btn-sm" onclick="readBlog('${b.id}')">Read Article →</button>
+      </div>
+    </div>`).join('');
+  blogRendered = true;
+}
+
+async function readBlog(id) {
+  const res = await api(`/api/blog?id=${id}`);
+  if (!res) return;
+  const b = res;
+  document.getElementById('articleContent').innerHTML = `
+    <div style="font-size:4rem;margin-bottom:20px;text-align:center;">${b.emoji}</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;justify-content:center;">
+      <span class="tag tag-blue">${b.cat}</span>
+      <span style="color:var(--text-3);font-size:.82rem;">📅 ${b.date}</span>
+      <span style="color:var(--text-3);font-size:.82rem;">⏱ ${b.readTime}</span>
+    </div>
+    <h1 class="h1" style="text-align:center;margin-bottom:16px;">${b.title}</h1>
+    <p style="text-align:center;color:var(--text-2);font-size:1.05rem;margin-bottom:40px;">${b.summary}</p>
+    <div class="divider" style="margin-bottom:36px;"></div>
+    <p style="color:var(--text-2);font-size:1rem;line-height:1.9;">${b.content}</p>
+    <div style="margin-top:48px;padding:24px;background:rgba(99,102,241,.08);border:1px solid rgba(99,102,241,.2);border-radius:var(--r-lg);">
+      <p style="color:var(--text-2);font-size:.9rem;">📢 This is an excerpt. Full articles with detailed breakdowns, examples, and resources are coming soon.</p>
+    </div>`;
+  showPage('blog-article');
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RESUME — ATS CHECKLIST
+═══════════════════════════════════════════════════════════════════ */
+const ATS_ITEMS = [
+  'Standard section headings (Experience, Education, Skills, Projects)',
+  'Keywords mirrored from the target job description',
+  'No tables, graphics, or embedded images',
+  'Clean, single or two-column format with consistent alignment',
+  'Saved as .pdf or .docx as specified in the job posting',
+  'All bullet points start with strong action verbs',
+  'At least 2-3 achievements are quantified with numbers',
+  'Contact info includes LinkedIn URL and GitHub profile',
+  'No unexplained career gaps or date inconsistencies',
+  'Font is professional (Calibri, Georgia, Garamond) at 10-12pt',
+];
+let atsChecked = false;
+
+function initATS() {
+  if (atsChecked) return;
+  const list = document.getElementById('atsList');
+  list.innerHTML = ATS_ITEMS.map((item, i) => `
+    <label style="display:flex;align-items:flex-start;gap:10px;font-size:.85rem;cursor:pointer;line-height:1.5;">
+      <input type="checkbox" id="ats-${i}" style="accent-color:var(--indigo);margin-top:2px;flex-shrink:0;" onchange="updateAtsScore()">
+      <span>${item}</span>
+    </label>`).join('');
+  updateAtsScore();
+  atsChecked = true;
+}
+
+function updateAtsScore() {
+  const total = ATS_ITEMS.length;
+  const checked = document.querySelectorAll('[id^="ats-"]:checked').length;
+  const pct = Math.round((checked / total) * 100);
+  const el = document.getElementById('atsScore');
+  const color = pct >= 80 ? 'var(--green)' : pct >= 60 ? 'var(--amber)' : '#f87171';
+  el.style.color = color;
+  el.style.borderColor = color.replace('var(','').replace(')','');
+  el.innerHTML = `ATS Score: <strong>${pct}%</strong> (${checked}/${total} criteria met)${pct === 100 ? ' 🎉' : pct >= 80 ? ' — Looking strong!' : pct >= 60 ? ' — Getting there!' : ' — Needs work'}`;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════════════════════════════ */
+async function submitContact(e) {
+  e.preventDefault();
+  const btn = document.getElementById('contactSubmit');
+  const msgEl = document.getElementById('contactMsg');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Sending...';
+
+  const res = await api('/api/contact','POST',{
+    name: document.getElementById('cName').value,
+    email: document.getElementById('cEmail').value,
+    subject: document.getElementById('cSubject').value,
+    message: document.getElementById('cMsg').value,
+  });
+
+  btn.disabled = false;
+  btn.innerHTML = 'Send Message ✦';
+
+  if (res && res.success) {
+    msgEl.className = 'success-msg';
+    msgEl.textContent = res.message;
+    document.getElementById('contactForm').reset();
+    toast(res.message, 'success');
+  } else {
+    msgEl.className = 'error-msg';
+    msgEl.textContent = res?.error || 'Something went wrong. Please try again.';
+    toast(res?.error || 'Error sending message', 'error');
+  }
+}
+
+async function subscribeNewsletter() {
+  const email = document.getElementById('nlEmail').value;
+  const btn = document.getElementById('nlBtn');
+  const msgEl = document.getElementById('nlMsg');
+  if (!email) return;
+  btn.disabled = true;
+  btn.textContent = '...';
+
+  const res = await api('/api/subscribe','POST',{email});
+  btn.disabled = false;
+  btn.textContent = 'Subscribe';
+
+  if (res && res.success) {
+    msgEl.className = 'success-msg';
+    msgEl.textContent = res.message;
+    document.getElementById('nlEmail').value = '';
+    toast(res.message, 'success');
+  } else {
+    msgEl.className = 'error-msg';
+    msgEl.textContent = res?.error || 'Error subscribing.';
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   ACCORDION
+═══════════════════════════════════════════════════════════════════ */
+function toggleAcc(header) {
+  const item = header.parentElement;
+  // Close siblings
+  const siblings = item.parentElement.querySelectorAll('.acc-item.open');
+  siblings.forEach(s => { if (s !== item) s.classList.remove('open'); });
+  item.classList.toggle('open');
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   LOAD STATS FROM API
+═══════════════════════════════════════════════════════════════════ */
+async function loadStats() {
+  const res = await api('/api/stats');
+  if (!res) return;
+  const grid = document.getElementById('statsGrid');
+  if (!grid) return;
+  grid.innerHTML = `
+    <div><span class="stat-num">${res.prompts}+</span><span class="stat-label">AI Prompts</span></div>
+    <div><span class="stat-num">${res.projects}+</span><span class="stat-label">Portfolio Projects</span></div>
+    <div><span class="stat-num">${res.careers}</span><span class="stat-label">Career Paths</span></div>
+    <div><span class="stat-num">${res.roadmaps}</span><span class="stat-label">Learning Roadmaps</span></div>
+    <div><span class="stat-num">${res.tools}+</span><span class="stat-label">AI Tools Listed</span></div>
+    <div><span class="stat-num">Free</span><span class="stat-label">To Start</span></div>`;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', () => {
+  checkNoirStatus();
+  loadStats();
+  loadSavedCount();
+
+  // Keyboard shortcut: Enter in chat inputs
+  document.getElementById('chatInput')?.addEventListener('keydown', e => { if (e.key==='Enter'&&!e.shiftKey) { e.preventDefault(); sendChat(); } });
+  document.getElementById('fabInput')?.addEventListener('keydown', e => { if (e.key==='Enter') sendFab(); });
+});
+</script>
+</body>
+</html>
