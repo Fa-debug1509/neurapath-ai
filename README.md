@@ -1,5 +1,33 @@
 # NeuraPath AI — Full Stack Platform
 
+# NeuraPath AI
+
+🌐 Live Demo: https://your-vercel-link.vercel.app
+
+NeuraPath AI is an AI-powered learning platform designed to help students with career guidance, learning roadmaps, resume building, project discovery, and AI-powered assistance through Noir AI.
+
+## Features
+
+- AI Career Guidance
+- Learning Roadmaps
+- Resume Checklist
+- Project Generator
+- AI Tools Directory
+- PromptVerse
+- Blog & Resources
+- Noir AI Assistant
+
+## Tech Stack
+
+- HTML
+- CSS
+- JavaScript
+- Node.js
+- GitHub
+- Vercel
+
+---
+
 ## Project Structure
 ```
 neurapath/
