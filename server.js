@@ -538,10 +538,7 @@ const server = http.createServer(async (req, res) => {
     const reply = getNoirReply(message.trim());
     const entry = { id: crypto.randomUUID(), sessionId: sessionId || 'anon', message: message.trim(), reply, timestamp: new Date().toISOString() };
 
-    const history = readJSON(FILES.chatHistory);
-    history.push(entry);
-    if (history.length > 500) history.splice(0, history.length - 500);
-    writeJSON(FILES.chatHistory, history);
+// Chat history disabled for Vercel
 
     return sendJSON(res, 200, { reply, id: entry.id, timestamp: entry.timestamp });
   }
